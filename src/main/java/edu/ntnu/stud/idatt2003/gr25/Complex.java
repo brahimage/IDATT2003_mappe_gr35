@@ -7,6 +7,8 @@ public class Complex extends Vector2D {
 
     public Complex(double realPart, double imaginaryPart) {
         super(realPart, imaginaryPart);
+        this.realPart = realPart;
+        this.imaginaryPart = imaginaryPart;
     }
 
     public Complex sqrt() {
