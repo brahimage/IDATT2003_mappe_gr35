@@ -1,0 +1,38 @@
+package edu.ntnu.stud.idatt2003.gr25;
+
+/**
+ * Represents a 2D transformation known as the Julia transformation, implementing the {@link Transform2D} interface.
+ * This transformation applies a mathematical operation to each point in a 2D vector.
+ */
+public class JuliaTransform implements Transform2D{
+  /**
+   * The complex number used in the transformation.
+   */
+  private Complex point;
+  /**
+   * The sign used in the transformation.
+   * TODO: This value can be stored as a boolean or a short for efficiency.
+   */
+  private int sign;
+
+  public JuliaTransform (Complex point, int sign) {
+    this.point = point;
+    this.sign = sign;
+  }
+
+  /**
+   * Transforms the specified 2D vector using the Julia transformation.
+   *
+   * @param point the 2D vector to be transformed.
+   * @return the transformed 2D vector.
+   */
+  @Override
+  public Vector2D transform(Vector2D point) {
+    //Convert input Vector2D to Complex.
+    Complex in = new Complex(point.getx0(), point.getx1());
+    //Perform Julia transformation.
+    Complex result = in.subtract(this.point).sqrt().multiply(sign);
+    //Return result as Vector2D.
+    return new Vector2D(result.getx0(), result.getx1());
+  }
+}
