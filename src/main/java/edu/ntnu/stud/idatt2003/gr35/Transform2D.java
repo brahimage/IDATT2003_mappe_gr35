@@ -1,4 +1,4 @@
-package edu.ntnu.stud.idatt2003.gr25;
+package edu.ntnu.stud.idatt2003.gr35;
 
 /**
  * Represents a 2D transformation, which is utilized by various transformations to generate fractals.

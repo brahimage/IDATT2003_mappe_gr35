@@ -1,3 +1,5 @@
+package edu.ntnu.stud.idatt2003.gr35;
+
 /**
  * An enumeration representing the sign of a value.
  */

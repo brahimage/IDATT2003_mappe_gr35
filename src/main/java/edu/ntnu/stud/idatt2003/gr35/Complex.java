@@ -2,18 +2,18 @@ package edu.ntnu.stud.idatt2003.gr35;
 
 public class Complex extends Vector2D {
 
-    final private double real;
-    final private double imag;
+    final private double realPart;
+    final private double imagPart;
 
-    public Complex(double realPart, double imaginaryPart) {
-        super(realPart, imaginaryPart);
-        real = realPart;
-        imag = imaginaryPart;
+    public Complex(double realPart, double imagPart) {
+        super(realPart, imagPart);
+        this.realPart = realPart;
+        this.imagPart = imagPart;
     }
 
     public Complex complexSqrt() {
-        double realPart = Math.sqrt((0.5) * (Math.sqrt(Math.pow(real, 2) + Math.pow(imag, 2)) + real));
-        double imagPart = Math.signum(imag) * Math.sqrt((0.5) * (Math.sqrt(Math.pow(real, 2) + Math.pow(imag, 2)) - real));
+        double real = Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) + realPart));
+        double imag = Math.signum(imagPart) * Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) - realPart));
 
         return new Complex(realPart, imagPart);
     }
@@ -26,7 +26,7 @@ public class Complex extends Vector2D {
      */
     public Complex add(Complex in) {
         double real = realPart + in.realPart;
-        double imag = imaginaryPart + in.imaginaryPart;
+        double imag = imagPart + in.imagPart;
         return new Complex(real, imag);
     }
 
@@ -38,7 +38,7 @@ public class Complex extends Vector2D {
      */
     public Complex subtract(Complex in) {
         double real = realPart - in.realPart;
-        double imag = imaginaryPart - in.imaginaryPart;
+        double imag = imagPart - in.imagPart;
         return new Complex(real, imag);
     }
 
@@ -50,7 +50,7 @@ public class Complex extends Vector2D {
      */
     public Complex multiply(float scaler) {
         double real = realPart * scaler;
-        double imag = imaginaryPart * scaler;
+        double imag = imagPart * scaler;
         return new Complex(real, imag);
     }
 }

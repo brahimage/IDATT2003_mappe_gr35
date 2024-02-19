@@ -1,4 +1,4 @@
-package edu.ntnu.stud.idatt2003.gr25;
+package edu.ntnu.stud.idatt2003.gr35;
 
 /**
  * Represents a 2D transformation known as the Julia transformation, implementing the {@link Transform2D} interface.
@@ -30,7 +30,7 @@ public class JuliaTransform implements Transform2D{
     //Convert input Vector2D to Complex.
     Complex in = new Complex(point.getx0(), point.getx1());
     //Perform Julia transformation.
-    Complex result = in.subtract(this.point).sqrt().multiply(sign.getValue());
+    Complex result = in.subtract(this.point).complexSqrt().multiply(sign.getValue());
     //Return result as Vector2D.
     return new Vector2D(result.getx0(), result.getx1());
   }
