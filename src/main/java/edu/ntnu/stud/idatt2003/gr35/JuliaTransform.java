@@ -13,9 +13,9 @@ public class JuliaTransform implements Transform2D{
    * The sign used in the transformation.
    * TODO: This value can be stored as a boolean or a short for efficiency.
    */
-  private int sign;
+  private Sign sign;
 
-  public JuliaTransform (Complex point, int sign) {
+  public JuliaTransform (Complex point, Sign sign) {
     this.point = point;
     this.sign = sign;
   }
@@ -31,7 +31,7 @@ public class JuliaTransform implements Transform2D{
     //Convert input Vector2D to Complex.
     Complex in = new Complex(point.getx0(), point.getx1());
     //Perform Julia transformation.
-    Complex result = in.subtract(this.point).sqrt().multiply(sign);
+    Complex result = in.subtract(this.point).sqrt().multiply(sign.getValue());
     //Return result as Vector2D.
     return new Vector2D(result.getx0(), result.getx1());
   }
