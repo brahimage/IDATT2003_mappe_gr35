@@ -11,7 +11,6 @@ public class JuliaTransform implements Transform2D{
   private Complex point;
   /**
    * The sign used in the transformation.
-   * TODO: This value can be stored as a boolean or a short for efficiency.
    */
   private Sign sign;
 
