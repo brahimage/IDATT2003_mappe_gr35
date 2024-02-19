@@ -15,7 +15,7 @@ public class Complex extends Vector2D {
         double real = Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) + realPart));
         double imag = Math.signum(imagPart) * Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) - realPart));
 
-        return new Complex(realPart, imagPart);
+        return new Complex(real, imag);
     }
 
     /**
