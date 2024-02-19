@@ -1,8 +1,8 @@
-package edu.ntnu.stud.idatt2003.gr25;
+package edu.ntnu.stud.idatt2003.gr35;
 
 public class Vector2D {
-    private double x0;
-    private double x1;
+    final private double x0;
+    final private double x1;
 
     public Vector2D(double x0, double x1) {
         this.x0 = x0;
