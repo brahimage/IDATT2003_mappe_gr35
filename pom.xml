@@ -42,6 +42,7 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
+                <configuration><mainClass>edu.ntnu.stud.idatt2003.gr35.MainUI</mainClass></configuration>
                 <version>0.0.8</version>
             </plugin>
             <plugin>
