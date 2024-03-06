@@ -59,7 +59,7 @@ public class Vector2D {
      * @param other The vector to be subtracted from this vector.
      * @return Returns a new vector representing the difference between this vector and the specified vector.
      */
-    public Vector2D substract(Vector2D other) {
+    public Vector2D subtract(Vector2D other) {
         double x0 = this.x0 - other.getx0();
         double x1 = this.x1 - other.getx1();
         return new Vector2D(x0, x1);
