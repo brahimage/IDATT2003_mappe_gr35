@@ -21,6 +21,24 @@ public class Complex extends Vector2D {
   }
 
   /**
+     * Returns the real part of the complex number.
+     *
+     * @return
+     */
+    public double getRealPart() {
+        return realPart;
+    }
+
+    /**
+     * Returns the imaginary part of the complex number.
+     *
+     * @return
+     */
+    public double getImagPart() {
+        return imagPart;
+    }
+
+  /**
    * Finds the root of a complex number.
    *
    * @return Returns the root of the complex number as a new complex number.
