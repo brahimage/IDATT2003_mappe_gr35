@@ -1,4 +1,9 @@
-package edu.ntnu.stud.idatt2003.gr35;
+package edu.ntnu.stud.idatt2003.gr35.model.transformations;
+
+import edu.ntnu.stud.idatt2003.gr35.Transform2D;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Complex;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Sign;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 
 /**
  * Represents a 2D transformation known as the Julia transformation, implementing the {@link Transform2D} interface.
