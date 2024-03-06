@@ -38,4 +38,10 @@ public class Vector2D {
         double x1 = this.x1 - other.getx1();
         return new Vector2D(x0, x1);
     }
+
+    public Vector2D multiply(double scalar) {
+        double x0 = this.x0 * scalar;
+        double x1 = this.x1 * scalar;
+        return new Vector2D(x0, x1);
+    }
 }
