@@ -1,16 +1,27 @@
 package edu.ntnu.stud.idatt2003.gr35;
 
 public class Complex extends Vector2D {
-
+    // The elements of the complex number
     final private double realPart;
     final private double imagPart;
 
+    /**
+     * Constructor for the Complex class.
+     *
+     * @param realPart The real part of the complex number.
+     * @param imagPart The imaginary part of the complex number.
+     */
     public Complex(double realPart, double imagPart) {
         super(realPart, imagPart);
         this.realPart = realPart;
         this.imagPart = imagPart;
     }
 
+    /**
+     * Returns the complex square root of the complex number.
+     *
+     * @return
+     */
     public Complex complexSqrt() {
         double real = Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) + realPart));
         double imag = Math.signum(imagPart) * Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) - realPart));
