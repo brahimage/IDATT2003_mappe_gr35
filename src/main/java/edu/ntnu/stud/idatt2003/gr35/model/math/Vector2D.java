@@ -64,4 +64,16 @@ public class Vector2D {
         double x1 = this.x1 - other.getx1();
         return new Vector2D(x0, x1);
     }
+
+    /**
+     * Multiplies this vector by a scaler.
+     * 
+     * @param scaler
+     * @return A new, scaled vector.
+     */
+    public Vector2D multiply(double scaler) {
+        double x0 = this.x0 * scaler;
+        double x1 = this.x1 * scaler;
+        return new Vector2D(x0, x1);
+    }
 }
