@@ -18,6 +18,24 @@ public class Complex extends Vector2D {
     }
 
     /**
+     * Returns the real part of the complex number.
+     *
+     * @return
+     */
+    public double getRealPart() {
+        return realPart;
+    }
+
+    /**
+     * Returns the imaginary part of the complex number.
+     *
+     * @return
+     */
+    public double getImagPart() {
+        return imagPart;
+    }
+
+    /**
      * Returns the complex square root of the complex number.
      *
      * @return
