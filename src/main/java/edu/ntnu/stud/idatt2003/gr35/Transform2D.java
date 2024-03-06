@@ -1,5 +1,7 @@
 package edu.ntnu.stud.idatt2003.gr35;
 
+import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
+
 /**
  * Represents a 2D transformation, which is utilized by various transformations to generate fractals.
  * Implementations of this interface define operations for transforming 2D vectors.
