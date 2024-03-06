@@ -1,4 +1,4 @@
-package edu.ntnu.stud.idatt2003.gr35;
+package edu.ntnu.stud.idatt2003.gr35.model.math;
 
 import edu.ntnu.stud.idatt2003.gr35.model.math.Complex;
 import org.junit.jupiter.api.DisplayName;
