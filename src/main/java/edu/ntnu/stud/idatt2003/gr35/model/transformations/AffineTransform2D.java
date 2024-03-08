@@ -25,7 +25,7 @@ public class AffineTransform2D implements Transform2D {
    * @param matrix_in the 2x2 matrix representing the linear transformation.
    * @param vector_in the 2D vector representing the translation.
    */
-  AffineTransform2D (Matrix2x2 matrix_in, Vector2D vector_in) {
+  public AffineTransform2D (Matrix2x2 matrix_in, Vector2D vector_in) {
     matrix = matrix_in;
     vector = vector_in;
   }
