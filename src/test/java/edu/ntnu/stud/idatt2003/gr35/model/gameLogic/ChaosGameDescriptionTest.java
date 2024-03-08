@@ -19,7 +19,7 @@ public class ChaosGameDescriptionTest {
     // Test data for the ChaosGameDescription
     Vector2D min = new Vector2D(0, 0);
     Vector2D max = new Vector2D(1, 0);
-    List<Transform2D> transforms = new ArrayList<Transform2D>();
+    List<Transform2D> transforms = new ArrayList<>();
     // Add the 3 transformations that produce the Sierpinski triangle (they all have the same matrix)
     Matrix2x2 sierpinskiMatrix = new Matrix2x2(.5, 0, 0, .5);
     transforms.add(new AffineTransform2D(sierpinskiMatrix, new Vector2D(0, 0)));

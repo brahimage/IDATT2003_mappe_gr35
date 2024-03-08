@@ -13,5 +13,5 @@ public interface Transform2D {
    * @param point the 2D vector to be transformed.
    * @return the transformed 2D vector.
    */
-  public Vector2D transform(Vector2D point);
+  Vector2D transform(Vector2D point);
 }
