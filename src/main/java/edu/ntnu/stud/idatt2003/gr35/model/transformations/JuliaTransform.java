@@ -3,6 +3,7 @@ package edu.ntnu.stud.idatt2003.gr35.model.transformations;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Complex;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Sign;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 public class JuliaTransform implements Transform2D, Serializable {
   // The serial version UID.
+  @Serial
   private static final long serialVersionUID = 2L;
   /**
    * The complex number used in the transformation.

@@ -1,9 +1,11 @@
 package edu.ntnu.stud.idatt2003.gr35.model.math;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Matrix2x2 implements Serializable {
     // The serial version UID.
+    @Serial
     private static final long serialVersionUID = 2L;
 
     // The elements of the matrix

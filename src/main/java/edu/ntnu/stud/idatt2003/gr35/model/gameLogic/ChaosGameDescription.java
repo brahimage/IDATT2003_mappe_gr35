@@ -2,6 +2,7 @@ package edu.ntnu.stud.idatt2003.gr35.model.gameLogic;
 
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class ChaosGameDescription implements Serializable {
   // The serial version UID.
+  @Serial
   private static final long serialVersionUID = 1L;
   // The minimum coordinates of the chaos game visualization (top left corner).
   private Vector2D mincoords;

@@ -1,5 +1,6 @@
 package edu.ntnu.stud.idatt2003.gr35.model.math;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -7,6 +8,7 @@ import java.io.Serializable;
  */
 public class Complex extends Vector2D implements Serializable {
   // The serial version UID.
+  @Serial
   private static final long serialVersionUID = 2L;
 
   // The components of the complex number

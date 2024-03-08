@@ -1,6 +1,7 @@
 package edu.ntnu.stud.idatt2003.gr35.model.math;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -8,6 +9,7 @@ import java.io.Serializable;
  */
 public class Vector2D implements Serializable {
     // The serial version UID.
+    @Serial
     private static final long serialVersionUID = 2L;
     final private double x0;
     final private double x1;
