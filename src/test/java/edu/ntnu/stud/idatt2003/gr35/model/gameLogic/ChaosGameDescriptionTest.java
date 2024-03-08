@@ -1,7 +1,5 @@
 package edu.ntnu.stud.idatt2003.gr35.model.gameLogic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import edu.ntnu.stud.idatt2003.gr35.model.math.Matrix2x2;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
