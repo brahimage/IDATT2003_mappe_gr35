@@ -1,6 +1,10 @@
 package edu.ntnu.stud.idatt2003.gr35.model.math;
 
-public class Matrix2x2 {
+import java.io.Serializable;
+
+public class Matrix2x2 implements Serializable {
+    // The serial version UID.
+    private static final long serialVersionUID = 2L;
 
     // The elements of the matrix
     private double a00;
@@ -34,5 +38,4 @@ public class Matrix2x2 {
         double x1 = a10 * vector2d.getx0() + a11 * vector2d.getx1();
         return new Vector2D(x0, x1);
     }
-
 }

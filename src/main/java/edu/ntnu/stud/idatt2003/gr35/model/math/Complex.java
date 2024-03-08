@@ -1,9 +1,14 @@
 package edu.ntnu.stud.idatt2003.gr35.model.math;
 
+import java.io.Serializable;
+
 /**
  * Class representing a complex number.
  */
-public class Complex extends Vector2D {
+public class Complex extends Vector2D implements Serializable {
+  // The serial version UID.
+  private static final long serialVersionUID = 2L;
+
   // The components of the complex number
   final private double realPart;
   final private double imagPart;

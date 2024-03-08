@@ -1,10 +1,14 @@
 package edu.ntnu.stud.idatt2003.gr35.model.math;
 
 
+import java.io.Serializable;
+
 /**
  * Class rerepsenting a two-dimensional vector.
  */
-public class Vector2D {
+public class Vector2D implements Serializable {
+    // The serial version UID.
+    private static final long serialVersionUID = 2L;
     final private double x0;
     final private double x1;
 
