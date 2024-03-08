@@ -1,4 +1,4 @@
-package edu.ntnu.stud.idatt2003.gr35;
+package edu.ntnu.stud.idatt2003.gr35.model.transformations;
 
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 
