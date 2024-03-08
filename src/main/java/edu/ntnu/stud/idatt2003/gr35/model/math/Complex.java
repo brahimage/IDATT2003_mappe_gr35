@@ -4,7 +4,7 @@ package edu.ntnu.stud.idatt2003.gr35.model.math;
  * Class representing a complex number.
  */
 public class Complex extends Vector2D {
-
+  // The components of the complex number
   final private double realPart;
   final private double imagPart;
 
@@ -23,7 +23,7 @@ public class Complex extends Vector2D {
   /**
      * Returns the real part of the complex number.
      *
-     * @return
+     * @return The real part of the complex number.
      */
     public double getRealPart() {
         return realPart;
@@ -32,7 +32,7 @@ public class Complex extends Vector2D {
     /**
      * Returns the imaginary part of the complex number.
      *
-     * @return
+     * @return The imaginary part of the complex number.
      */
     public double getImagPart() {
         return imagPart;
