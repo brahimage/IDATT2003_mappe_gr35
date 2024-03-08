@@ -74,7 +74,7 @@ public class Vector2D implements Serializable {
     /**
      * Multiplies this vector by a scaler.
      * 
-     * @param scaler
+     * @param scaler The scalar value to multiply this vector by.
      * @return A new, scaled vector.
      */
     public Vector2D multiply(double scaler) {
