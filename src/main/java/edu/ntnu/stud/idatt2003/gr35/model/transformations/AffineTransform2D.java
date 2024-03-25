@@ -1,15 +1,19 @@
 package edu.ntnu.stud.idatt2003.gr35.model.transformations;
 
-import edu.ntnu.stud.idatt2003.gr35.Transform2D;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Matrix2x2;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * Represents a 2D affine transformation that implements the {@link Transform2D} interface.
  * This transformation applies a linear transformation represented by a 2x2 matrix, followed by a translation
  * represented by a 2D vector.
  */
-public class AffineTransform2D implements Transform2D {
+public class AffineTransform2D implements Transform2D, Serializable {
+  // The serial version UID.
+  @Serial
+  private static final long serialVersionUID = 2L;
 
   /**
    * The 2x2 matrix representing the linear transformation.
@@ -26,7 +30,7 @@ public class AffineTransform2D implements Transform2D {
    * @param matrix_in the 2x2 matrix representing the linear transformation.
    * @param vector_in the 2D vector representing the translation.
    */
-  AffineTransform2D (Matrix2x2 matrix_in, Vector2D vector_in) {
+  public AffineTransform2D (Matrix2x2 matrix_in, Vector2D vector_in) {
     matrix = matrix_in;
     vector = vector_in;
   }

@@ -1,10 +1,16 @@
 package edu.ntnu.stud.idatt2003.gr35.model.math;
 
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * Class rerepsenting a two-dimensional vector.
  */
-public class Vector2D {
+public class Vector2D implements Serializable {
+    // The serial version UID.
+    @Serial
+    private static final long serialVersionUID = 2L;
     final private double x0;
     final private double x1;
 
@@ -68,7 +74,7 @@ public class Vector2D {
     /**
      * Multiplies this vector by a scaler.
      * 
-     * @param scaler
+     * @param scaler The scalar value to multiply this vector by.
      * @return A new, scaled vector.
      */
     public Vector2D multiply(double scaler) {

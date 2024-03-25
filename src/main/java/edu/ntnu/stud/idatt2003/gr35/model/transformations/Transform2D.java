@@ -1,4 +1,4 @@
-package edu.ntnu.stud.idatt2003.gr35;
+package edu.ntnu.stud.idatt2003.gr35.model.transformations;
 
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 
@@ -13,5 +13,5 @@ public interface Transform2D {
    * @param point the 2D vector to be transformed.
    * @return the transformed 2D vector.
    */
-  public Vector2D transform(Vector2D point);
+  Vector2D transform(Vector2D point);
 }
