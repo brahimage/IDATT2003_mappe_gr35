@@ -19,10 +19,19 @@ public class ChaosGame {
     this.currentPoint = new Vector2D(0, 0);
   }
 
+  /**
+   * Returns the canvas of the chaos game.
+   * @return Returns the canvas of the chaos game.
+   */
   public ChaosCanvas getCanvas() {
     return canvas;
   }
 
+  /**
+   * Runs the ChaosGame with the specified number of steps.
+   *
+   * @param steps the number of steps to run the chaos game for.
+   */
   public void runSteps(int steps) {
     Vector<Vector2D> points = new Vector<>();
     for (int i = 0; i < description.getTransforms().size(); i++) {

@@ -4,6 +4,9 @@ import edu.ntnu.stud.idatt2003.gr35.model.math.Matrix2x2;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
 
+/**
+ * Represents a canvas for drawing points in a 2D plane.
+ */
 public class ChaosCanvas {
 
   private int[][] canvas;
@@ -36,22 +39,41 @@ public class ChaosCanvas {
 
   }
 
+  /**
+   * Returns the pixel value at the specified point.
+   *
+   * @param point the point to get the pixel value from.
+   * @return Returns the pixel value at the specified point.
+   */
   public int getPixel(Vector2D point) {
     int x0 = (int) point.getx0();
     int x1 = (int) point.getx1();
     return canvas[x0][x1];
   }
 
+  /**
+   * Puts a pixel at the specified point.
+   *
+   * @param point the point to put the pixel at.
+   */
   public void putPixel(Vector2D point) {
     int x0 = (int) point.getx0();
     int x1 = (int) point.getx1();
     canvas[x0][x1] = 1;
   }
 
+  /**
+   * Returns the canvas as a 2D array.
+   *
+   * @return Returns the canvas as a 2D array.
+   */
   public int[][] getCanvasArray() {
     return canvas;
   }
 
+  /**
+   * Clears the canvas.
+   */
   public void clear() {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
@@ -60,6 +82,11 @@ public class ChaosCanvas {
     }
   }
 
+  /**
+   * Transforms the canvas to a 2D array.
+   *
+   * @return Returns the transformed canvas as a 2D array.
+   */
   public int[][] transformedCanvas() {
     int[][] transformedCanvas = new int[width][height];
     for (int i = 0; i < width; i++) {
@@ -71,6 +98,9 @@ public class ChaosCanvas {
     return transformedCanvas;
   }
 
+  /**
+   * Prints the canvas to the console.
+   */
   public void printCanvas() {
     int[][] canvas = transformedCanvas();
     for (int i = 0; i < height; i++) {
