@@ -66,6 +66,10 @@ public class Main {
         chaosGame.runSteps(iterations);
         choice = 0;
     }
+
+    // Causes error when run with test data. Array index out of bounds. Likely caused by transformation of coordinates, coordinates swapped or off-by-one in loop.
     public static void visualizeChaosGame() {
+        chaosGame.getCanvas().printCanvas();
+        choice = 0;
     }
 }
