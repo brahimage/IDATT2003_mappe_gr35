@@ -11,8 +11,8 @@ public class Vector2D implements Serializable {
     // The serial version UID.
     @Serial
     private static final long serialVersionUID = 2L;
-    final private double x0;
-    final private double x1;
+    private double x0;
+    private double x1;
 
 
     /**
@@ -44,6 +44,24 @@ public class Vector2D implements Serializable {
 
     public double getx1() {
         return x1;
+    }
+
+    /**
+     * Sets the first element of the vector.
+     *
+     * @param x0 The new value of x0.
+     */
+    public void setx0(double x0) {
+        this.x0 = x0;
+    }
+
+    /**
+     * Sets the second element of the vector.
+     *
+     * @param x1 The new value of x1.
+     */
+    public void setx1(double x1) {
+        this.x1 = x1;
     }
 
     /**
