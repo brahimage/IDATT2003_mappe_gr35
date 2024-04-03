@@ -24,8 +24,8 @@ public class ChaosGameFileHandlerTest {
     transforms.add(new AffineTransform2D(sierpinskiMatrix, new Vector2D(.25, .5)));
 
     ChaosGameDescription description = new ChaosGameDescription(min, max, transforms);
-    ChaosGameFileHandler.writeToFile(description, "test.txt");
-    ChaosGameDescription description2 = ChaosGameFileHandler.readFromFile("test.txt");
+    ChaosGameFileHandler.writeToFile(description, "ChaosGames/test.json");
+    ChaosGameDescription description2 = ChaosGameFileHandler.readFromFile("ChaosGames/test.json");
 
     // Assert that the data stored within the ChaosGameDescription object is the same after saving and loading
     assertEquals(description.getMincoords().getx0(), description2.getMincoords().getx0());
