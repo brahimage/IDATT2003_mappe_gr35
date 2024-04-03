@@ -44,7 +44,7 @@ public class ChaosGame {
       currentPoint.setx0(newPoint.getx0());
       currentPoint.setx1(newPoint.getx1());
     }
-    canvas.putPixel(new Vector2D(5,5));
-    canvas.printCanvas();
+    //canvas.putPixel(new Vector2D(5,5));
+    //canvas.printCanvas();
   }
 }
