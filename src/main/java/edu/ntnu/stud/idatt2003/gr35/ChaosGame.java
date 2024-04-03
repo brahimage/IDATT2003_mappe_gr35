@@ -39,6 +39,7 @@ public class ChaosGame {
     }
     for (int i = 0; i < steps; i++) {
       int randomIndex = random.nextInt(description.getTransforms().size());
+      // TODO: This point has to be transformed in some way.
       Vector2D newPoint = description.getTransforms().get(randomIndex).transform(currentPoint);
       canvas.putPixel(newPoint);
       currentPoint.setx0(newPoint.getx0());
