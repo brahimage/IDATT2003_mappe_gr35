@@ -60,6 +60,11 @@ public class Main {
     }
 
     public static void runIterationsOfChaosGame() {
+        System.out.println("Enter the number of iterations:");
+        int iterations = scanner.nextInt();
+        scanner.nextLine();
+        chaosGame.runSteps(iterations);
+        choice = 0;
     }
     public static void visualizeChaosGame() {
     }
