@@ -33,7 +33,7 @@ public class ChaosGameDescriptionTest {
   public void GenerateTestFiles() {
     // Generate a chaos game description for the Sierpinski triangle stored as a file
     Vector2D minCoords = new Vector2D(0, 0);
-    Vector2D maxCoords = new Vector2D(1, 0);
+    Vector2D maxCoords = new Vector2D(1, 1);
     List<Transform2D> transforms = new ArrayList<>();
     transforms.add(new AffineTransform2D(
         new Matrix2x2(.5, 0, 0, .5),
