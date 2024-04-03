@@ -23,8 +23,19 @@ public class Main {
             }
         }
     }
+
     public static void showMainMenu() {
+        System.out.println("Main menu:");
+        System.out.println("1. Read Chaos Game Description from file");
+        System.out.println("2. Write Chaos Game Description to file");
+        if (chaosGameDescription != null) {
+            System.out.println("3. Run iterations of selected Chaos Game");
+            System.out.println("4. Visualize Chaos Game");
+        }
+        choice = scanner.nextInt();
+        scanner.nextLine();
     }
+
     public static void readChaosGameDescriptionFromFile() {
     }
     public static void writeChaosGameDescriptionToFile() {
