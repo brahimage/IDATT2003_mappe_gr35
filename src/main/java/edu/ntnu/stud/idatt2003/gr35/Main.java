@@ -37,9 +37,28 @@ public class Main {
     }
 
     public static void readChaosGameDescriptionFromFile() {
+        System.out.println("Enter the file path:");
+        String filePath = scanner.nextLine();
+        try {
+            chaosGameDescription = ChaosGameFileHandler.readFromFile(filePath);
+            chaosGame = new ChaosGame(chaosGameDescription, 100, 20);
+        } catch (Exception e) {
+            System.out.println("An error occurred while reading the file: " + e.getMessage());
+        }
+        choice = 0;
     }
+
     public static void writeChaosGameDescriptionToFile() {
+        System.out.println("Enter the file path:");
+        String filePath = scanner.nextLine();
+        try {
+            ChaosGameFileHandler.writeToFile(chaosGameDescription, filePath);
+        } catch (Exception e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
+        choice = 0;
     }
+
     public static void runIterationsOfChaosGame() {
     }
     public static void visualizeChaosGame() {
