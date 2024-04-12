@@ -1,12 +1,18 @@
 package edu.ntnu.stud.idatt2003.gr35.model.gameLogic;
 
+import edu.ntnu.stud.idatt2003.gr35.model.math.Complex;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Matrix2x2;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Sign;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.JuliaTransform;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.Scanner;
 
 /**
  * Class for deconstructing and reconstructing ChaosGameDescription objects to and from files.
@@ -144,6 +150,79 @@ public class ChaosGameFileHandlerLEGACY {
         case 2 -> "rd";
         default -> "th";
       };
+    }
+  }
+
+  /**
+   * Reads a ChaosGameDescription object from a file.
+   * The file must be formatted as described in the writeToFile method.
+   *
+   * @param path The path to the file to read from.
+   * @return The ChaosGameDescription object read from the file.
+   */
+  public static ChaosGameDescription readFromFile(String path) {
+    try {
+      File file = new File(path);
+      Scanner scanner = new Scanner(file);
+
+      // Initialize variables to store data
+      List<Transform2D> transforms = new ArrayList<>();
+      Vector2D min;
+      Vector2D max;
+
+      // Read the 3 standard lines
+      String type = scanner.nextLine().split("#")[0].trim();
+      String[] minCoords = scanner.nextLine().split("#")[0].split(",");
+      min = new Vector2D(Double.parseDouble(minCoords[0].trim()), Double.parseDouble(minCoords[1].trim()));
+      String[] maxCoords = scanner.nextLine().split("#")[0].split(",");
+      max = new Vector2D(Double.parseDouble(maxCoords[0].trim()), Double.parseDouble(maxCoords[1].trim()));
+
+      switch (type) {
+        case "Affine2D" -> handleAffineRead(scanner, transforms);
+        case "Julia" -> handleJuliaRead(scanner, transforms);
+        default -> throw new Exception("Unsupported transformation type: " + type);
+      }
+      return new ChaosGameDescription(min, max, transforms);
+    } catch (Exception e) {
+      System.out.println("An error occurred while reading from the file: " + e.getMessage());
+      return null;
+    }
+  }
+
+  /**
+   * Reads a Julia transform from the file and adds it to the list of transforms.
+   * Julia-based chaos games only have one transform.
+   *
+   * @param scanner The scanner to read from.
+   * @param transforms The list of transforms to add the Julia transform to.
+   * @throws Exception If an error occurs while reading the Julia transform.
+   */
+  private static void handleJuliaRead(Scanner scanner, List<Transform2D> transforms) throws Exception {
+    String[] point = scanner.nextLine().split("#")[0].split(",");
+    Complex c = new Complex(Double.parseDouble(point[0].trim()), Double.parseDouble(point[1].trim()));
+    transforms.add(new JuliaTransform(c, Sign.POSITIVE));
+  }
+
+  /**
+   * Reads affine transforms from the file and adds them to the list of transforms.
+   *
+   * @param scanner The scanner to read from.
+   * @param transforms The list of transforms to add the affine transforms to.
+   * @throws Exception If an error occurs while reading the affine transforms.
+   */
+  private static void handleAffineRead(Scanner scanner, List<Transform2D> transforms) throws Exception {
+    while (scanner.hasNextLine()) {
+      String[] transform = scanner.nextLine().split("#")[0].split(",");
+      double a00 = Double.parseDouble(transform[0].trim());
+      double a01 = Double.parseDouble(transform[1].trim());
+      double a10 = Double.parseDouble(transform[2].trim());
+      double a11 = Double.parseDouble(transform[3].trim());
+      double b0 = Double.parseDouble(transform[4].trim());
+      double b1 = Double.parseDouble(transform[5].trim());
+      transforms.add(new AffineTransform2D(new Matrix2x2(a00, a01, a10, a11), new Vector2D(b0, b1)));
+    }
+    if (transforms.isEmpty()) {
+      throw new Exception("No transforms found in file.");
     }
   }
 }
