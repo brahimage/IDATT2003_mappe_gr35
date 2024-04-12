@@ -17,4 +17,12 @@ public class AffineTransform2DTest {
     Vector2D vector2 = transform.transform(vector);
     assertEquals(0.75, vector2.getx0());
   }
+
+  @Test
+  void testTransformAsString() {
+    Vector2D vectorTrans = new Vector2D(.25, .5);
+    Matrix2x2 matrix = new Matrix2x2(0.5, 0, 0, 0.5);
+    AffineTransform2D transform = new AffineTransform2D(matrix, vectorTrans);
+    assertEquals("0.5, 0.0, 0.0, 0.5, 0.25, 0.5", transform.getTransformationAsString());
+  }
 }

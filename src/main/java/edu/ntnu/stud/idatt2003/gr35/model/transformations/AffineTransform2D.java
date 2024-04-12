@@ -46,4 +46,11 @@ public class AffineTransform2D implements Transform2D, Serializable {
     // Apply the linear transformation followed by the translation
     return matrix.multiply(point).add(vector);
   }
+
+  /**
+   * Returns data of the transformation as a string.
+   */
+  public String getTransformationAsString() {
+    return matrix.getA00() + ", " + matrix.getA01() + ", " + matrix.getA10() + ", " + matrix.getA11() + ", " + vector.getx0() + ", " + vector.getx1();
+  }
 }
