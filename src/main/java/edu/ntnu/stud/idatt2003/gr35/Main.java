@@ -2,7 +2,6 @@ package edu.ntnu.stud.idatt2003.gr35;
 
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameDescription;
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameFileHandler;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
