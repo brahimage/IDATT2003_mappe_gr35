@@ -40,4 +40,32 @@ public class Matrix2x2 implements Serializable {
         double x1 = a10 * vector2d.getx0() + a11 * vector2d.getx1();
         return new Vector2D(x0, x1);
     }
+
+    /**
+     * Getter for the element in the first row and first column.
+     */
+    public double getA00() {
+        return a00;
+    }
+
+    /**
+     * Getter for the element in the first row and second column.
+     */
+    public double getA01() {
+        return a01;
+    }
+
+    /**
+     * Getter for the element in the second row and first column.
+     */
+    public double getA10() {
+        return a10;
+    }
+
+    /**
+     * Getter for the element in the second row and second column.
+     */
+    public double getA11() {
+        return a11;
+    }
 }
