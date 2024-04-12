@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ChaosGameFileHandlerLEGACYTest {
   @Test
-  void testSaveChaosGameDescriptionAffine() {
+  void testSaveAndLoadChaosGameDescriptionAffine() {
     // Test data for the ChaosGameDescription
     Vector2D min = new Vector2D(0, 0);
     Vector2D max = new Vector2D(1, 1);
@@ -29,10 +29,30 @@ public class ChaosGameFileHandlerLEGACYTest {
 
     ChaosGameDescription description = new ChaosGameDescription(min, max, transforms);
     ChaosGameFileHandlerLEGACY.writeToFile(description, "ChaosGames/testSierpinski.txt");
+
+    ChaosGameDescription loadedDescription = ChaosGameFileHandlerLEGACY.readFromFile("ChaosGames/testSierpinski.txt");
+    // Check that the loaded description is the same as the original
+    assert loadedDescription != null;
+    assert loadedDescription.getMincoords().getx0() == (description.getMincoords().getx0());
+    assert loadedDescription.getMincoords().getx1() == (description.getMincoords().getx1());
+    assert loadedDescription.getMaxcoords().getx0() == (description.getMaxcoords().getx0());
+    assert loadedDescription.getMaxcoords().getx1() == (description.getMaxcoords().getx1());
+    assert loadedDescription.getTransforms().size() == description.getTransforms().size();
+    // Check that the loaded transforms are the same as the original
+    for (int i = 0; i < description.getTransforms().size(); i++) {
+      Transform2D originalTransform = description.getTransforms().get(i);
+      Transform2D loadedTransform = loadedDescription.getTransforms().get(i);
+      assert originalTransform.getClass().equals(loadedTransform.getClass());
+      if (originalTransform instanceof AffineTransform2D) {
+        AffineTransform2D originalAffine = (AffineTransform2D) originalTransform;
+        AffineTransform2D loadedAffine = (AffineTransform2D) loadedTransform;
+        assert originalAffine.getTransformationAsString().equals(loadedAffine.getTransformationAsString());
+      }
+    }
   }
 
   @Test
-  void testSaveChaosGameDescriptionJulia() {
+  void testSaveAndLoadChaosGameDescriptionJulia() {
     // Test data for the ChaosGameDescription
     Vector2D min = new Vector2D(0, 0);
     Vector2D max = new Vector2D(1, 1);
@@ -41,5 +61,19 @@ public class ChaosGameFileHandlerLEGACYTest {
     transforms.add(new JuliaTransform(new Complex(1, 2), Sign.POSITIVE));
     ChaosGameDescription description = new ChaosGameDescription(min, max, transforms);
     ChaosGameFileHandlerLEGACY.writeToFile(description, "ChaosGames/testJulia.txt");
+
+    ChaosGameDescription loadedDescription = ChaosGameFileHandlerLEGACY.readFromFile("ChaosGames/testJulia.txt");
+    // Check that the loaded description is the same as the original
+    assert loadedDescription != null;
+    assert loadedDescription.getMincoords().getx0() == (description.getMincoords().getx0());
+    assert loadedDescription.getMincoords().getx1() == (description.getMincoords().getx1());
+    assert loadedDescription.getMaxcoords().getx0() == (description.getMaxcoords().getx0());
+    assert loadedDescription.getMaxcoords().getx1() == (description.getMaxcoords().getx1());
+    assert loadedDescription.getTransforms().size() == description.getTransforms().size();
+    // Chaos games using Julia transforms only have one transform. Check that it is the same as the original
+    JuliaTransform originalTransform = (JuliaTransform) description.getTransforms().get(0);
+    JuliaTransform loadedTransform = (JuliaTransform) loadedDescription.getTransforms().get(0);
+    assert originalTransform.getPoint().getRealPart() == loadedTransform.getPoint().getRealPart();
+    assert originalTransform.getPoint().getImagPart() == loadedTransform.getPoint().getImagPart();
   }
 }
