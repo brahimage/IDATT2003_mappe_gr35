@@ -134,7 +134,7 @@ public class ChaosGameFileHandlerLEGACY {
    * @return The ordinal indicator of the number.
    */
   private static String getOrdinalIndicator(int i) {
-    if (i >= 10 && i <= 12) {
+    if (i % 100 >= 10 && i % 100 <= 12) {
       return "th";
     }
     else {
