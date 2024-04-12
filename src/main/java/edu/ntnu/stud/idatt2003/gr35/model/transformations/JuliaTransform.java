@@ -52,4 +52,11 @@ public class JuliaTransform implements Transform2D, Serializable {
   public Complex getPoint() {
     return point;
   }
+
+  /**
+   * Returns the point of the transform as a string
+   */
+  public String getPointAsString() {
+    return point.getx0() + ", " + point.getx1();
+  }
 }
