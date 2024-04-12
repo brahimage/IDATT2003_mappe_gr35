@@ -13,64 +13,137 @@ import java.io.FileWriter;
  * Uses 'manual' string parsing to read and write objects.
  */
 public class ChaosGameFileHandlerLEGACY {
+
+  /**
+   * Writes a ChaosGameDescription object to a file.
+   * Every line in the file contains a piece of data from the ChaosGameDescription object.
+   * Every line is followed by a comment describing the data.
+   *
+   * @param description The ChaosGameDescription object to write to file.
+   * @param path The path to the file to write to.
+   */
   public static void writeToFile(ChaosGameDescription description, String path) {
-    ArrayList<String> lines = new ArrayList<>(){{add ("");}};
-    ArrayList<String> comments = new ArrayList<>(){{
+    ArrayList<String> lines = new ArrayList<>(){{add ("");}}; // Reserve position 0 for the type of transform.
+    ArrayList<String> comments = new ArrayList<>(){{ // Init array containing comments for each line.
         add("Type of transform");
         add("Lower left");
         add("Upper right");
     }};
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-      Transform2D sample = description.getTransforms().get(0);
-      lines.add(description.getMincoords().getx0() + ", " + description.getMincoords().getx1());
-      lines.add(description.getMaxcoords().getx0() + ", " + description.getMaxcoords().getx1());
-      if (sample instanceof AffineTransform2D) {
-        lines.set(0, "Affine2D");
-        List<Transform2D> transforms = description.getTransforms();
-        for (int i = 0; i < transforms.size(); i++) {
-          lines.add(((AffineTransform2D) transforms.get(i)).getTransformationAsString());
-          String comment = String.valueOf(i+1);
-          if (i >= 10 && i <= 12) {
-            comment += "th";
-          }
-          else {
-            switch (i % 10) {
-              case 0 -> comment += "st";
-              case 1 -> comment += "nd";
-              case 2 -> comment += "rd";
-              default -> comment += "th";
-            }
-          }
-          comment += " transform";
-          comments.add(comment);
-        }
-        comments.set(3, "1st transform (a00, a01, a10, a11, b0, b1)");
-      }
-      else if (sample instanceof JuliaTransform) {
-        lines.set(0, "Julia");
-        lines.add(((JuliaTransform) sample).getPointAsString());
-        comments.add("Real and imaginary parts of the constant c");
-      }
-      else {
+
+    lines.add(description.getMincoords().getx0() + ", " + description.getMincoords().getx1()); // Write the min coordinates.
+    lines.add(description.getMaxcoords().getx0() + ", " + description.getMaxcoords().getx1()); // Write the max coordinates.
+    // The 3 standard lines have been written, now we need to write the actual transforms.
+
+    Transform2D sample = description.getTransforms().get(0); // Get a sample transform to determine the type.
+    switch (sample) {
+      case AffineTransform2D ignored -> handleAffine(description, lines, comments);
+      case JuliaTransform juliaTransform -> handleJulia(lines, juliaTransform, comments);
+      case null, default ->
         throw new Error("Unsupported transformation type: " + sample.getClass().getName());
-      }
-      int longestLine = 0;
-      for (String line : lines) {
-        longestLine = Integer.max(longestLine, line.length());
-      }
+    }
+
+    int longestLine = getLongestLine(lines);
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
       for (int i = 0; i < lines.size(); i++) {
-        String line = lines.get(i);
-        String comment = comments.get(i);
-        writer.write(line);
-        for (int j = 0; j < longestLine - line.length(); j++) {
-          writer.write(" ");
-        }
-        writer.write("   # " + comment);
-        writer.newLine();
+        writeLine(writer, lines.get(i), comments.get(i), longestLine);
       }
       writer.flush();
     } catch (Exception e) {
       System.out.println("An error occurred while writing to the file: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Writes a line in the output file with the specified comment.
+   *
+   * @param line The line to write.
+   * @param comment The comment to write.
+   */
+  private static void writeLine(BufferedWriter writer, String line, String comment, int longestLine) {
+    try {
+      writer.write(line);
+      for (int j = 0; j < longestLine - line.length(); j++) {
+        writer.write(" ");
+      }
+      writer.write("   # " + comment + "\n");
+    } catch (Exception e) {
+      System.out.println("An error occurred while writing to the file: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Returns the length of the longest line in the list of lines.
+   *
+   * @param lines The list of lines to check.
+   * @return The length of the longest line.
+   */
+  private static int getLongestLine(ArrayList<String> lines) {
+    int longestLine = 0;
+    for (String line : lines) {
+      longestLine = Integer.max(longestLine, line.length());
+    }
+    return longestLine;
+  }
+
+  /**
+   * Generates the lines and comments to save to file for a JuliaTransform.
+   *
+   * @param lines The list of lines to write to the file.
+   * @param sample The sample transform to get the point from.
+   * @param comments The list of comments to write to the file.
+   */
+  private static void handleJulia(ArrayList<String> lines, JuliaTransform sample,
+      ArrayList<String> comments) {
+    // Set appropriate type of transform.
+    lines.set(0, "Julia");
+    // Julia transform has only one point, so we only need to add one line.
+    lines.add(sample.getPointAsString());
+    // Add comment for the point.
+    comments.add("Real and imaginary parts of the constant c");
+  }
+
+  /**
+   * Generates the lines and comments to save to file for an AffineTransform2D.
+   *
+   * @param description The ChaosGameDescription object to get the transforms from.
+   * @param lines The list of lines to write to the file.
+   * @param comments The list of comments to write to the file.
+   */
+  private static void handleAffine(ChaosGameDescription description, ArrayList<String> lines,
+      ArrayList<String> comments) {
+    // Set appropriate type of transform.
+    lines.set(0, "Affine2D");
+
+    // Get the list of transforms.
+    List<Transform2D> transforms = description.getTransforms();
+    for (int i = 0; i < transforms.size(); i++) {
+      // Add the transform as a line in the file.
+      lines.add(((AffineTransform2D) transforms.get(i)).getTransformationAsString());
+      // Construct a comment for the transform.
+      comments.add(String.valueOf(i+1) + getOrdinalIndicator(i) + " transform");
+    }
+    // Add a more descriptive comment for the first transform.
+    comments.set(3, "1st transform (a00, a01, a10, a11, b0, b1)");
+  }
+
+  /**
+   * Returns a string with the ordinal indicator appended to the number,
+   * i.e. "st", "nd", "rd" or "th".
+   *
+   * @param i The number to get the ordinal indicator of.
+   * @return The ordinal indicator of the number.
+   */
+  private static String getOrdinalIndicator(int i) {
+    if (i >= 10 && i <= 12) {
+      return "th";
+    }
+    else {
+      return switch (i % 10) {
+        case 0 -> "st";
+        case 1 -> "nd";
+        case 2 -> "rd";
+        default -> "th";
+      };
     }
   }
 }
