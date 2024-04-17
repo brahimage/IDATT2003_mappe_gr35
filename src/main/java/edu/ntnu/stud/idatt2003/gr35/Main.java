@@ -40,7 +40,7 @@ public class Main {
         String filePath = scanner.nextLine();
         try {
             chaosGameDescription = ChaosGameFileHandler.readFromFile(filePath);
-            chaosGame = new ChaosGame(chaosGameDescription, 100, 20);
+            chaosGame = new ChaosGame(chaosGameDescription, 120, 50);
         } catch (Exception e) {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
         }

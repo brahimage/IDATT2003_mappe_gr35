@@ -20,14 +20,14 @@ public class ChaosCanvas {
 
     Matrix2x2 A = new Matrix2x2(
         0,
-        (width - 1) / (minCoords.getx1() - maxCoords.getx1()),
-        (height - 1) / (maxCoords.getx0() - minCoords.getx0()),
+        (height - 1) / (minCoords.getx1() - maxCoords.getx1()),
+        (width - 1) / (maxCoords.getx0() - minCoords.getx0()),
         0
     );
 
     Vector2D b = new Vector2D(
-        ((width - 1) * maxCoords.getx1()) / (maxCoords.getx1() - minCoords.getx1()),
-        ((height - 1) * minCoords.getx0()) / (minCoords.getx0() - maxCoords.getx0())
+        ((height - 1) * maxCoords.getx1()) / (maxCoords.getx1() - minCoords.getx1()),
+        ((width - 1) * minCoords.getx0()) / (minCoords.getx0() - maxCoords.getx0())
     );
 
     this.width = width;
@@ -35,7 +35,7 @@ public class ChaosCanvas {
     this.minCoords = minCoords;
     this.maxCoords = maxCoords;
     this.transformCoordsToIndices = new AffineTransform2D(A, b);
-    this.canvas = new int[width][height];
+    this.canvas = new int[height][width];
   }
 
   public int getPixel(Vector2D point) {
@@ -58,13 +58,13 @@ public class ChaosCanvas {
   }
 
   public void clear() {
-    canvas = new int[width][height];
+    canvas = new int[height][width];
   }
 
   public void printCanvas() {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        System.out.print(canvas[j][i] == 1 ? "*" : " ");
+        System.out.print(canvas[i][j] == 1 ? "*" : " ");
       }
       System.out.println();
     }
