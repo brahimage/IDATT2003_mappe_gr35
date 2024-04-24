@@ -1,8 +1,11 @@
 package edu.ntnu.stud.idatt2003.gr35;
 
+import edu.ntnu.stud.idatt2003.gr35.controller.ChaosGameObserver;
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameDescription;
 import edu.ntnu.stud.idatt2003.gr35.view.ChaosCanvas;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -10,6 +13,7 @@ import java.util.Random;
  */
 public class ChaosGame {
 
+  private List<ChaosGameObserver> observers = new ArrayList<>();
   private final ChaosCanvas canvas;
   private final ChaosGameDescription gameDescription;
   private final Vector2D currentPoint;
@@ -59,6 +63,35 @@ public class ChaosGame {
       canvas.putPixel(newPoint);
       currentPoint.setx0(newPoint.getx0());
       currentPoint.setx1(newPoint.getx1());
+    }
+  }
+
+  /**
+   * Adds an observer to the chaos game.
+   *
+   * @param observer The observer to add.
+   */
+  public void addObserver(ChaosGameObserver observer) {
+    observers.add(observer);
+  }
+
+  /**
+   * Removes an observer from the chaos game.
+   *
+   * @param observer The observer to remove.
+   */
+  public void removeObserver(ChaosGameObserver observer) {
+    observers.remove(observer);
+  }
+
+  /**
+   * Notifies all observers of the chaos game.
+   *
+   * @param o The object to notify the observers with.
+   */
+  public void notifyObservers(Object o) {
+    for (ChaosGameObserver observer : observers) {
+      observer.update(o);
     }
   }
 }
