@@ -5,6 +5,7 @@ import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,5 +40,14 @@ public class ChaosGameFileHandlerTest {
       assertEquals(vec0.getx0(), vec1.getx0());
       assertEquals(vec0.getx1(), vec1.getx1());
     }
+  }
+
+  @Test
+  void testGetAllExistingPaths() throws IOException {
+    ArrayList<String> paths = ChaosGameFileHandler.GetAllExistingPaths(Path.of("ChaosGamesTest"));
+    assertEquals(3, paths.size());
+    assertEquals("ChaosGamesTest\\julia.json", paths.get(0));
+    assertEquals("ChaosGamesTest\\sierpinski.json", paths.get(1));
+    assertEquals("ChaosGamesTest\\test.json", paths.get(2));
   }
 }
