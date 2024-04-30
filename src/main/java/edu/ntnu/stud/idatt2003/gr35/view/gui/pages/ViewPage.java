@@ -1,9 +1,13 @@
 package edu.ntnu.stud.idatt2003.gr35.view.gui.pages;
 
+import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameFileHandler;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.DeleteButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.PlayButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageswitchbuttons.VariablePopUpButton;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -62,8 +66,18 @@ public class ViewPage extends StackPane {
     PlayButton playButton = new PlayButton();
     ComboBox<String> comboBox = new ComboBox<>();
 
-    // This is temporary, the items should be fetched from files.
-    comboBox.getItems().addAll("Sierpinski", "Julia", "Barley");
+    // Get paths of all .json files in the ChaosGames directory
+    ArrayList<String> items;
+    try {
+      items = ChaosGameFileHandler.GetAllExistingPaths(Path.of("ChaosGames"));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    // Remove the directory path and the file extension from the paths
+    items.replaceAll(s -> s.substring(11, s.length() - 5));
+
+    // Add the items to the ComboBox
+    comboBox.getItems().addAll(items);
     comboBox.setId("top-bar-combobox");
     comboBox.setPromptText("Select transformation");
 
