@@ -3,6 +3,9 @@ package edu.ntnu.stud.idatt2003.gr35.model.math;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class representing a 2x2 matrix.
+ */
 public class Matrix2x2 implements Serializable {
     // The serial version UID.
     @Serial

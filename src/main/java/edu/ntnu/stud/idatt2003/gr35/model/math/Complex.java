@@ -51,11 +51,12 @@ public class Complex extends Vector2D implements Serializable {
    * @return Returns the root of the complex number as a new complex number.
    */
   public Complex complexSqrt() {
-    double real =
-        Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) + realPart));
-    double imag = Math.signum(imagPart) *
-        Math.sqrt((0.5) * (Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2)) - realPart));
-
+    // Precalculate the magnitude of the complex number
+    double comp = Math.sqrt(Math.pow(realPart, 2) + Math.pow(imagPart, 2));
+    // Calculate the real and imaginary parts of the root
+    double real = Math.sqrt((0.5) * (comp + realPart));
+    double imag = Math.signum(imagPart) * Math.sqrt((0.5) * (comp - realPart));
+    // Return the root as a new complex number
     return new Complex(real, imag);
   }
 
