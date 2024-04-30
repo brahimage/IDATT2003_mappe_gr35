@@ -4,6 +4,11 @@ import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameDescription;
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameFileHandler;
 import java.util.Scanner;
 
+/**
+ * DEPRECATED! This class is no longer used in the application.
+ * It was used for the console-based version of the Chaos Game application.
+ * Main class for the Chaos Game application.
+ */
 public class Main {
     static ChaosGameDescription chaosGameDescription;
     static ChaosGame chaosGame;
