@@ -9,12 +9,22 @@ import java.util.Random;
  * Represents a chaos game that can be run with a specified number of steps.
  */
 public class ChaosGame {
-
+  // The canvas for the chaos game.
   private final ChaosCanvas canvas;
+  // The current game description for the chaos game.
   private final ChaosGameDescription gameDescription;
+  // The current point in the chaos game.
   private final Vector2D currentPoint;
+  // The random number generator for the chaos game.
   private final Random rand;
 
+  /**
+   * Constructs a ChaosGame object with the specified game description, width, and height.
+   *
+   * @param gameDescription the game description for the chaos game.
+   * @param width the width of the canvas.
+   * @param height the height of the canvas.
+   */
   public ChaosGame(ChaosGameDescription gameDescription, int width, int height) {
     this.gameDescription = gameDescription;
     this.canvas = new ChaosCanvas(width, height, gameDescription.getMincoords(),
