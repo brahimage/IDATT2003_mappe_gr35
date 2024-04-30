@@ -6,7 +6,15 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * A button that plays the game.
+ */
 public class PlayButton extends Button {
+  /**
+   * Constructs a new PlayButton.
+   *
+   * @throws FileNotFoundException If the icon file is not found.
+   */
   public PlayButton() throws FileNotFoundException {
     super();
 
