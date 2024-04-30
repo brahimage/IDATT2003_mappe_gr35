@@ -82,8 +82,10 @@ public class ViewPage extends StackPane {
     comboBox.setId("top-bar-combobox");
     comboBox.setPromptText("Select transformation");
 
+    // Get the selected value from the ComboBox
     ObservableValue<String> selectedValue = comboBox.valueProperty();
 
+    // Add a listener to the selected value
     selectedValue.addListener((observable, oldValue, newValue) -> {
           System.out.println("Selected value: " + newValue);
           // TODO: Load the selected ChaosGameDescription from file.
