@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -80,6 +81,13 @@ public class ViewPage extends StackPane {
     comboBox.getItems().addAll(items);
     comboBox.setId("top-bar-combobox");
     comboBox.setPromptText("Select transformation");
+
+    ObservableValue<String> selectedValue = comboBox.valueProperty();
+
+    selectedValue.addListener((observable, oldValue, newValue) -> {
+          System.out.println("Selected value: " + newValue);
+          // TODO: Load the selected ChaosGameDescription from file.
+        });
 
     HBox buttonContainer = new HBox();
     buttonContainer.getChildren().addAll(playButton, deleteButton, comboBox, variablePopUpButton);
