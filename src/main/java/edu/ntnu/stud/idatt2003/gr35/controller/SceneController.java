@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 /**
  * Controller class for the scene.
-
  */
 public class SceneController {
   // The scene to be displayed.
