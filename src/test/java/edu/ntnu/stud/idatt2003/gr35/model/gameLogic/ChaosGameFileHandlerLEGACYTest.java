@@ -28,9 +28,9 @@ public class ChaosGameFileHandlerLEGACYTest {
     transforms.add(new AffineTransform2D(sierpinskiMatrix, new Vector2D(.25, .5)));
 
     ChaosGameDescription description = new ChaosGameDescription(min, max, transforms);
-    ChaosGameFileHandlerLEGACY.writeToFile(description, "ChaosGames/testSierpinski.txt");
+    ChaosGameFileHandlerLEGACY.writeToFile(description, "ChaosGamesTest/testSierpinski.txt");
 
-    ChaosGameDescription loadedDescription = ChaosGameFileHandlerLEGACY.readFromFile("ChaosGames/testSierpinski.txt");
+    ChaosGameDescription loadedDescription = ChaosGameFileHandlerLEGACY.readFromFile("ChaosGamesTest/testSierpinski.txt");
     // Check that the loaded description is the same as the original
     assert loadedDescription != null;
     assert loadedDescription.getMincoords().getx0() == (description.getMincoords().getx0());
@@ -60,9 +60,9 @@ public class ChaosGameFileHandlerLEGACYTest {
     // Add the 3 transformations that produce the Sierpinski triangle (they all have the same matrix)
     transforms.add(new JuliaTransform(new Complex(1, 2), Sign.POSITIVE));
     ChaosGameDescription description = new ChaosGameDescription(min, max, transforms);
-    ChaosGameFileHandlerLEGACY.writeToFile(description, "ChaosGames/testJulia.txt");
+    ChaosGameFileHandlerLEGACY.writeToFile(description, "ChaosGamesTest/testJulia.txt");
 
-    ChaosGameDescription loadedDescription = ChaosGameFileHandlerLEGACY.readFromFile("ChaosGames/testJulia.txt");
+    ChaosGameDescription loadedDescription = ChaosGameFileHandlerLEGACY.readFromFile("ChaosGamesTest/testJulia.txt");
     // Check that the loaded description is the same as the original
     assert loadedDescription != null;
     assert loadedDescription.getMincoords().getx0() == (description.getMincoords().getx0());
