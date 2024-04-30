@@ -16,25 +16,26 @@ public class ChaosCanvas {
   // The minimum and maximum coordinates of the canvas.
   private Vector2D minCoords;
   private Vector2D maxCoords;
-  // The transformation used to convert coordinates to indices.
+  // The affine transformation that transforms coordinates to indices in the canvas array.
   private AffineTransform2D transformCoordsToIndices;
 
   /**
-   * Constructs a new ChaosCanvas with the specified width, height, minimum coordinates, and maximum coordinates.
+   * Constructs a ChaosCanvas object with the specified width, height, minimum coordinates, and maximum coordinates.
    *
-   * @param width the width of the canvas.
-   * @param height the height of the canvas.
-   * @param minCoords the minimum coordinates of the canvas.
-   * @param maxCoords the maximum coordinates of the canvas.
+   * @param width The width of the canvas.
+   * @param height The height of the canvas.
+   * @param minCoords The minimum coordinates of the canvas.
+   * @param maxCoords The maximum coordinates of the canvas.
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
-    // Calculate the transformation matrix and translation vector.
+    // Calculate the affine transformation matrix for the affine transformation.
     Matrix2x2 A = new Matrix2x2(
         0,
         (height - 1) / (minCoords.getx1() - maxCoords.getx1()),
         (width - 1) / (maxCoords.getx0() - minCoords.getx0()),
         0
     );
+    // Calculate the translation vector for the affine transformation.
     Vector2D b = new Vector2D(
         ((height - 1) * maxCoords.getx1()) / (maxCoords.getx1() - minCoords.getx1()),
         ((width - 1) * minCoords.getx0()) / (minCoords.getx0() - maxCoords.getx0())
@@ -49,9 +50,10 @@ public class ChaosCanvas {
   }
 
   /**
-   * Returns the width of the canvas.
+   * Returns the pixel value at the specified point.
    *
-   * @return the width.
+   * @param point The point to get the pixel value for.
+   * @return The pixel value at the specified point (0 or 1).
    */
   public int getPixel(Vector2D point) {
     int x0 = (int) point.getx0();
@@ -60,13 +62,12 @@ public class ChaosCanvas {
   }
 
   /**
-   * Sets the pixel at the specified point to 1.
+   * Puts a pixel at the specified point (sets value to 1).
    *
-   * @param point the point.
+   * @param point The point to put the pixel at.
    */
   public void putPixel(Vector2D point) {
     Vector2D v = transformCoordsToIndices.transform(point);
-
     int x0 = (int) v.getx0();
     int x1 = (int) v.getx1();
     canvas[x0][x1] = 1;
@@ -75,14 +76,14 @@ public class ChaosCanvas {
   /**
    * Returns the canvas array.
    *
-   * @return the canvas array.
+   * @return The canvas array.
    */
   public int[][] getCanvasArray() {
     return canvas;
   }
 
   /**
-   * Clears the canvas. Sets all elements to 0.
+   * Clears the canvas (sets all values to 0).
    */
   public void clear() {
     canvas = new int[height][width];

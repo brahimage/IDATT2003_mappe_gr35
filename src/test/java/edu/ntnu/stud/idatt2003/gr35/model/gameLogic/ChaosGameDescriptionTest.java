@@ -49,7 +49,7 @@ public class ChaosGameDescriptionTest {
     ));
     ChaosGameDescription description = new ChaosGameDescription(minCoords, maxCoords, transforms);
     try {
-      ChaosGameFileHandler.writeToFile(description, "ChaosGames/sierpinski.json");
+      ChaosGameFileHandler.writeToFile(description, "ChaosGamesTest/sierpinski.json");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -59,7 +59,7 @@ public class ChaosGameDescriptionTest {
     transforms.add(new JuliaTransform(new Complex(-.75, .1), Sign.POSITIVE));
     ChaosGameDescription juliaDescription = new ChaosGameDescription(minCoords, maxCoords, transforms);
     try {
-      ChaosGameFileHandler.writeToFile(juliaDescription, "ChaosGames/julia.json");
+      ChaosGameFileHandler.writeToFile(juliaDescription, "ChaosGamesTest/julia.json");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

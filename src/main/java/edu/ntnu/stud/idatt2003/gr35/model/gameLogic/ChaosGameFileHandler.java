@@ -6,6 +6,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 
+/**
+ * Class for deconstructing and reconstructing ChaosGameDescription objects to and from files.
+ * Uses Serialization to read and write objects.
+ */
 public class ChaosGameFileHandler {
 
   /**
