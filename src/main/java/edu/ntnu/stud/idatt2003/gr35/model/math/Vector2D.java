@@ -11,6 +11,7 @@ public class Vector2D implements Serializable {
     // The serial version UID.
     @Serial
     private static final long serialVersionUID = 2L;
+    // The elements of the vector
     private double x0;
     private double x1;
 
