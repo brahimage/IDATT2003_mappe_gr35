@@ -14,8 +14,9 @@ public class VariablePopUpButton extends Button {
   public VariablePopUpButton() {
     super();
 
-    this.setText("Variable PopUp");
+    this.setText("Edit Variables");
     this.setId("small-button");
+    this.setPrefWidth(150);
 
     // Opens a new pop-up window for adding a new variable.
     this.setOnAction(e -> {
