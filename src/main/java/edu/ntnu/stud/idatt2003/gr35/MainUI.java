@@ -28,6 +28,10 @@ public class MainUI extends Application implements Observer {
 
         sceneController.showViewPage();
         primaryStage.show();
+
+        // Loading the canvas calculates the size of certain elements dynamically.
+        // Because of this, it must be done AFTER the stage is shown.
+        sceneController.loadCanvas();
     }
 
     /**
