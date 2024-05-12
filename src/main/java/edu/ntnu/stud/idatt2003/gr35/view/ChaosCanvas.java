@@ -47,7 +47,7 @@ public class ChaosCanvas {
     this.minCoords = minCoords;
     this.maxCoords = maxCoords;
     this.transformCoordsToIndices = new AffineTransform2D(A, b);
-    this.canvas = new int[height][width];
+    this.canvas = new int[width][height];
   }
 
   /**
@@ -87,15 +87,15 @@ public class ChaosCanvas {
    * Clears the canvas (sets all values to 0).
    */
   public void clear() {
-    canvas = new int[height][width];
+    canvas = new int[width][height];
   }
 
   /**
    * Prints the canvas to the console.
    */
   public void printCanvas() {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
         System.out.print(canvas[i][j] == 1 ? "*" : " ");
       }
       System.out.println();
