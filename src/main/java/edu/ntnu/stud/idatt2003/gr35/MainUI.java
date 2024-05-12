@@ -14,8 +14,10 @@ import java.util.Observer;
  * The main class for the application.
 
  */
-public class MainUI extends Application {
 public class MainUI extends Application implements Observer {
+    ChaosGame chaosGame;
+    SceneController sceneController;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         ChaosGameDescriptionFactory.GenerateTestFiles();
