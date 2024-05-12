@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
  * The main page of the application where the user can view the fractal.
  */
 public class ViewPage extends StackPane {
+  private String selectedChaosGame;
   /**
    * Constructs a new ViewPage.
    *
@@ -99,7 +100,7 @@ public class ViewPage extends StackPane {
     // Add a listener to the selected value
     selectedValue.addListener((observable, oldValue, newValue) -> {
           System.out.println("Selected value: " + newValue);
-          // TODO: Load the selected ChaosGameDescription from file.
+          selectedChaosGame = newValue;
         });
 
     HBox buttonContainer = new HBox();
@@ -110,5 +111,14 @@ public class ViewPage extends StackPane {
     topBar.setLeft(buttonContainer);
     topBar.setMinHeight(60);
     return topBar;
+  }
+
+  /**
+   * Gets the selected chaos game in drop-down menu.
+   *
+   * @return The name of the selected chaos game.
+   */
+  public String getSelectedChaosGame() {
+    return selectedChaosGame;
   }
 }
