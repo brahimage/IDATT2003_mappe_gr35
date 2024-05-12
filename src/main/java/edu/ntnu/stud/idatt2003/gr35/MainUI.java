@@ -44,5 +44,22 @@ public class MainUI extends Application implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
+        // Get the selected chaos game from drop down menu loaded by scene controller.
+        String selectedChaosGame = sceneController.getChosenGame();
+        String path = "ChaosGames\\" + selectedChaosGame + ".json";
+        ChaosGameDescription gameDescription;
+        try {
+            gameDescription = ChaosGameFileHandler.readFromFile(path);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        Vector2D canvasDimensions = sceneController.getCanvasDimensions();
+        chaosGame = new ChaosGame(gameDescription,
+            (int) canvasDimensions.getx0(),
+            (int) canvasDimensions.getx1());
+        // The sceneController will draw as the pixels are modified.
+        chaosGame.addObserver(sceneController);
+        chaosGame.init();
+        chaosGame.runSteps(10000);
     }
 }
