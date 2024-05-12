@@ -22,7 +22,8 @@ public class MainUI extends Application implements Observer {
     public void start(Stage primaryStage) throws Exception {
         ChaosGameDescriptionFactory.GenerateTestFiles();
 
-        SceneController sceneController = new SceneController(primaryStage);
+        sceneController = new SceneController(primaryStage);
+        sceneController.addObserver(this);
 
         primaryStage.setTitle("Chaos Game!");
 
