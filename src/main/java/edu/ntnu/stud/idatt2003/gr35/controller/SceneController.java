@@ -26,6 +26,8 @@ public class SceneController {
   private final Scene scene;
   // The view page to be displayed.
   private final ViewPage viewPage;
+  // The GraphicsContext for the canvas.
+  private GraphicsContext gc;
   // The dimensions of the canvas.
   private Vector2D canvasDimensions;
 
@@ -62,4 +64,19 @@ public class SceneController {
     scene.setRoot(viewPage.getRoot());
   }
 }
+
+  /**
+   * Loads a reference to the canvas graphics context.
+   * Used to draw pixels on the canvas.
+   */
+  public void loadCanvas() {
+    try {
+      StackPane root = (StackPane) (viewPage.getChildren().get(0)).lookup("#fractal-view");
+      Canvas canvas = (Canvas) root.getChildren().get(0);
+      gc = canvas.getGraphicsContext2D();
+      canvasDimensions = new Vector2D(canvas.getWidth(), canvas.getHeight());
+    } catch (Exception e) {
+      throw new RuntimeException("Could not find canvas");
+    }
+  }
 
