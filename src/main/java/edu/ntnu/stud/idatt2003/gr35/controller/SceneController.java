@@ -63,7 +63,6 @@ public class SceneController {
   public void showViewPage() {
     scene.setRoot(viewPage.getRoot());
   }
-}
 
   /**
    * Loads a reference to the canvas graphics context.
@@ -78,5 +77,21 @@ public class SceneController {
     } catch (Exception e) {
       throw new RuntimeException("Could not find canvas");
     }
+  }
+
+  /**
+   * Draws a pixel on the canvas at the specified position.
+   *
+   * @param pos The position to draw the pixel at.
+   */
+  public void drawPixel(Vector2D pos) {
+    if (gc == null) {
+      throw new RuntimeException("GraphicsContext not initialized");
+    }
+    if (pos.getx0() < 0 || pos.getx0() >= canvasDimensions.getx0() || pos.getx1() < 0
+        || pos.getx1() >= canvasDimensions.getx1()) {
+      throw new IllegalArgumentException("Position out of bounds");
+    }
+    gc.fillRect(pos.getx0(), pos.getx1(), 1, 1);
   }
 
