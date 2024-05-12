@@ -46,6 +46,7 @@ public class SceneController extends Observable implements Observer {
 
     primaryStage.setScene(scene);
     this.viewPage = new ViewPage();
+    initPlayButton();
   }
 
   /**
@@ -97,6 +98,41 @@ public class SceneController extends Observable implements Observer {
 
   public String getChosenGame() {
     return viewPage.getSelectedChaosGame();
+  }
+
+  /**
+   * Fetches the javaFX play button and adds an action listener to it.
+   */
+  private void initPlayButton() {
+    try {
+      VBox pageElements = null;
+      for (Node node : viewPage.getChildren()) {
+        if (node instanceof VBox) {
+          pageElements = (VBox) node;
+          break;
+        }
+      }
+      BorderPane topBar = null;
+      for (Node node : pageElements.getChildren()) {
+        if (node instanceof BorderPane) {
+          topBar = (BorderPane) node;
+          break;
+        }
+      }
+      HBox buttonContainer = (HBox) topBar.getLeft();
+      PlayButton playButton;
+      for (Node node : buttonContainer.getChildren()) {
+        if (node instanceof PlayButton) {
+          playButton = (PlayButton) node;
+          playButton.setOnAction(e -> {
+            setChanged();
+            notifyObservers();
+          });
+        }
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("ERROR");
+    }
   }
 
   /**
