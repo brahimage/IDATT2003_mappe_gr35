@@ -95,3 +95,6 @@ public class SceneController {
     gc.fillRect(pos.getx0(), pos.getx1(), 1, 1);
   }
 
+  public String getChosenGame() {
+    return viewPage.getSelectedChaosGame();
+  }
