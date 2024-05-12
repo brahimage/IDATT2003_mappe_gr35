@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * Controller class for the scene.
  */
-public class SceneController {
+public class SceneController extends Observable implements Observer {
   // The scene to be displayed.
   private final Scene scene;
   // The view page to be displayed.
@@ -98,3 +98,20 @@ public class SceneController {
   public String getChosenGame() {
     return viewPage.getSelectedChaosGame();
   }
+
+  /**
+   * update method called for each pixel drawn in chaos game.
+   *
+   * @param o     the observable object.
+   * @param arg   an argument passed to the {@code notifyObservers}
+   *                 method.
+   */
+  @Override
+  public void update(Observable o, Object arg) {
+    if (o instanceof ChaosGame) {
+      if (arg instanceof Vector2D) {
+        drawPixel((Vector2D) arg);
+      }
+    }
+  }
+}
