@@ -29,15 +29,16 @@ public class ChaosCanvas {
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
     // Calculate the affine transformation matrix for the affine transformation.
+    // This step requires a01 and a10 to be swapped. The cause of this is unknown.
     Matrix2x2 A = new Matrix2x2(
         0,
-        (height - 1) / (minCoords.getx1() - maxCoords.getx1()),
         (width - 1) / (maxCoords.getx0() - minCoords.getx0()),
+        (height - 1) / (maxCoords.getx1() - minCoords.getx1()),
         0
     );
     // Calculate the translation vector for the affine transformation.
     Vector2D b = new Vector2D(
-        ((height - 1) * maxCoords.getx1()) / (maxCoords.getx1() - minCoords.getx1()),
+        ((height - 1) * minCoords.getx1()) / (minCoords.getx1() - maxCoords.getx1()),
         ((width - 1) * minCoords.getx0()) / (minCoords.getx0() - maxCoords.getx0())
     );
     // Set the fields.
