@@ -66,12 +66,14 @@ public class ChaosCanvas {
    * Puts a pixel at the specified point (sets value to 1).
    *
    * @param point The point to put the pixel at.
+   * @return The index of the pixel in the canvas array.
    */
-  public void putPixel(Vector2D point) {
+  public Vector2D putPixel(Vector2D point) {
     Vector2D v = transformCoordsToIndices.transform(point);
     int x0 = (int) v.getx0();
     int x1 = (int) v.getx1();
     canvas[x0][x1] = 1;
+    return new Vector2D(x0, x1);
   }
 
   /**
