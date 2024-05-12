@@ -67,11 +67,12 @@ public class ChaosGame extends Observable {
     for (int i = 0; i < steps; i++) {
       int randomIndex = rand.nextInt(nrOfTransforms);
       Vector2D newPoint = gameDescription.getTransforms().get(randomIndex).transform(currentPoint);
-      canvas.putPixel(newPoint);
+      Vector2D coords = canvas.putPixel(newPoint);
       currentPoint.setx0(newPoint.getx0());
       currentPoint.setx1(newPoint.getx1());
+      // Notify the scene controller to draw the pixel.
+      setChanged();
+      notifyObservers(coords);
     }
-
-    notifyObservers();
   }
 }
