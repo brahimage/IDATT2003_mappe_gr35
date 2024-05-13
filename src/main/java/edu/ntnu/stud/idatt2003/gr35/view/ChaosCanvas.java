@@ -29,15 +29,16 @@ public class ChaosCanvas {
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
     // Calculate the affine transformation matrix for the affine transformation.
+    // This step requires a01 and a10 to be swapped. The cause of this is unknown.
     Matrix2x2 A = new Matrix2x2(
         0,
-        (height - 1) / (minCoords.getx1() - maxCoords.getx1()),
         (width - 1) / (maxCoords.getx0() - minCoords.getx0()),
+        (height - 1) / (maxCoords.getx1() - minCoords.getx1()),
         0
     );
     // Calculate the translation vector for the affine transformation.
     Vector2D b = new Vector2D(
-        ((height - 1) * maxCoords.getx1()) / (maxCoords.getx1() - minCoords.getx1()),
+        ((height - 1) * minCoords.getx1()) / (minCoords.getx1() - maxCoords.getx1()),
         ((width - 1) * minCoords.getx0()) / (minCoords.getx0() - maxCoords.getx0())
     );
     // Set the fields.
@@ -46,7 +47,7 @@ public class ChaosCanvas {
     this.minCoords = minCoords;
     this.maxCoords = maxCoords;
     this.transformCoordsToIndices = new AffineTransform2D(A, b);
-    this.canvas = new int[height][width];
+    this.canvas = new int[width][height];
   }
 
   /**
@@ -65,12 +66,14 @@ public class ChaosCanvas {
    * Puts a pixel at the specified point (sets value to 1).
    *
    * @param point The point to put the pixel at.
+   * @return The index of the pixel in the canvas array.
    */
-  public void putPixel(Vector2D point) {
+  public Vector2D putPixel(Vector2D point) {
     Vector2D v = transformCoordsToIndices.transform(point);
     int x0 = (int) v.getx0();
     int x1 = (int) v.getx1();
     canvas[x0][x1] = 1;
+    return new Vector2D(x0, x1);
   }
 
   /**
@@ -86,15 +89,15 @@ public class ChaosCanvas {
    * Clears the canvas (sets all values to 0).
    */
   public void clear() {
-    canvas = new int[height][width];
+    canvas = new int[width][height];
   }
 
   /**
    * Prints the canvas to the console.
    */
   public void printCanvas() {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
         System.out.print(canvas[i][j] == 1 ? "*" : " ");
       }
       System.out.println();

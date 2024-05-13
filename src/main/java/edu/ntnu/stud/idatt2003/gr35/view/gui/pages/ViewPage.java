@@ -9,17 +9,17 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-
 /**
  * The main page of the application where the user can view the fractal.
  */
 public class ViewPage extends StackPane {
+  private String selectedChaosGame;
   /**
    * Constructs a new ViewPage.
    *
@@ -33,9 +33,21 @@ public class ViewPage extends StackPane {
     VBox pageElements = new VBox();
     BorderPane topBar = getTopBar();
     StackPane fractalView = new StackPane();
-    Text fractalText = new Text("Fractal View");
+    Canvas fractalCanvas = new Canvas();
+
+    /*
+     * Dimensions of canvas is 20 pixels less than that of the fractal view on all sides.
+     * This is to make sure that the canvas is not drawn on the border of the fractal view.
+     * WARNING: This is known to cause weird scaling issues that ruin the view
+     * if this value is lower than 40. (This may be affected by resolution changes)
+     * When changing this value, make sure to test the scaling of the fractal view.
+     */
+    fractalCanvas.widthProperty().bind(fractalView.widthProperty().subtract(40));
+    fractalCanvas.heightProperty().bind(fractalView.heightProperty().subtract(40));
+
+    fractalCanvas.setId("fractal-canvas");
     fractalView.setId("fractal-view");
-    fractalView.getChildren().add(fractalText);
+    fractalView.getChildren().add(fractalCanvas);
     fractalView.setAlignment(javafx.geometry.Pos.CENTER);
     pageElements.getChildren().addAll(topBar, fractalView);
     pageElements.setSpacing(20);
@@ -88,7 +100,7 @@ public class ViewPage extends StackPane {
     // Add a listener to the selected value
     selectedValue.addListener((observable, oldValue, newValue) -> {
           System.out.println("Selected value: " + newValue);
-          // TODO: Load the selected ChaosGameDescription from file.
+          selectedChaosGame = newValue;
         });
 
     HBox buttonContainer = new HBox();
@@ -99,5 +111,14 @@ public class ViewPage extends StackPane {
     topBar.setLeft(buttonContainer);
     topBar.setMinHeight(60);
     return topBar;
+  }
+
+  /**
+   * Gets the selected chaos game in drop-down menu.
+   *
+   * @return The name of the selected chaos game.
+   */
+  public String getSelectedChaosGame() {
+    return selectedChaosGame;
   }
 }
