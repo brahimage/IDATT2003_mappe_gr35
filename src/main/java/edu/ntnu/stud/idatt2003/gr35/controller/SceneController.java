@@ -2,6 +2,7 @@ package edu.ntnu.stud.idatt2003.gr35.controller;
 
 import edu.ntnu.stud.idatt2003.gr35.ChaosGame;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
+import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.DeleteButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.PlayButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pages.ViewPage;
 import java.io.FileNotFoundException;
@@ -47,6 +48,7 @@ public class SceneController extends Observable implements Observer {
     primaryStage.setScene(scene);
     this.viewPage = new ViewPage();
     initPlayButton();
+    initDeleteButton();
   }
 
   /**
@@ -96,6 +98,10 @@ public class SceneController extends Observable implements Observer {
     gc.fillRect(pos.getx0(), pos.getx1(), 1, 1);
   }
 
+  public void clearCanvas() {
+    gc.clearRect(0, 0, canvasDimensions.getx0(), canvasDimensions.getx1());
+  }
+
   public String getChosenGame() {
     return viewPage.getSelectedChaosGame();
   }
@@ -126,6 +132,38 @@ public class SceneController extends Observable implements Observer {
           playButton = (PlayButton) node;
           playButton.setOnAction(e -> {
             setChanged();
+            notifyObservers();
+          });
+        }
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("ERROR");
+    }
+  }
+
+  public void initDeleteButton() {
+    try {
+      VBox pageElements = null;
+      for (Node node : viewPage.getChildren()) {
+        if (node instanceof VBox) {
+          pageElements = (VBox) node;
+          break;
+        }
+      }
+      BorderPane topBar = null;
+      for (Node node : pageElements.getChildren()) {
+        if (node instanceof BorderPane) {
+          topBar = (BorderPane) node;
+          break;
+        }
+      }
+      HBox buttonContainer = (HBox) topBar.getLeft();
+      DeleteButton deleteButton;
+      for (Node node : buttonContainer.getChildren()) {
+        if (node instanceof DeleteButton) {
+          deleteButton = (DeleteButton) node;
+          deleteButton.setOnAction(e -> {
+            clearCanvas();
             notifyObservers();
           });
         }
