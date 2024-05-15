@@ -34,7 +34,7 @@ public class ChaosCanvas {
     // Set the fields.
     this.width = width;
     this.height = height;
-    this.minCoords = minCoords;
+    this.minCoords = new Vector2D(abs(minCoords.getx0()), abs(minCoords.getx1()));
     this.maxCoords = maxCoords;
     this.horizontalScaler = (width - 1) / abs(maxCoords.getx0() - minCoords.getx0());
     this.verticalScaler = (height - 1) / abs(maxCoords.getx1() - minCoords.getx1());
@@ -54,8 +54,8 @@ public class ChaosCanvas {
   }
 
   public Vector2D transformCoordsToIndices(Vector2D point) {
-    double x0 = (point.getx0() + abs(minCoords.getx0())) * horizontalScaler;
-    double x1 = (point.getx1() + abs(minCoords.getx1())) * verticalScaler;
+    double x0 = (point.getx0() + minCoords.getx0()) * horizontalScaler;
+    double x1 = (point.getx1() + minCoords.getx1()) * verticalScaler;
     return new Vector2D(x0, x1);
   }
 
