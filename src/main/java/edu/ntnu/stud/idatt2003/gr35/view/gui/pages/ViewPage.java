@@ -3,6 +3,7 @@ package edu.ntnu.stud.idatt2003.gr35.view.gui.pages;
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameFileHandler;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.DeleteButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.PlayButton;
+import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.SaveButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageswitchbuttons.VariablePopUpButton;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -79,6 +80,7 @@ public class ViewPage extends StackPane {
     VariablePopUpButton variablePopUpButton = new VariablePopUpButton();
     DeleteButton deleteButton = new DeleteButton();
     PlayButton playButton = new PlayButton();
+    SaveButton saveButton = new SaveButton();
     ComboBox<String> comboBox = new ComboBox<>();
 
     // Get paths of all .json files in the ChaosGames directory
@@ -106,7 +108,7 @@ public class ViewPage extends StackPane {
         });
 
     HBox buttonContainer = new HBox();
-    buttonContainer.getChildren().addAll(playButton, deleteButton, comboBox, variablePopUpButton);
+    buttonContainer.getChildren().addAll(playButton, deleteButton, comboBox, variablePopUpButton, saveButton);
 
     buttonContainer.setSpacing(20);
 

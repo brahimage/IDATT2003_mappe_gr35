@@ -4,20 +4,29 @@ import edu.ntnu.stud.idatt2003.gr35.ChaosGame;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.DeleteButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.PlayButton;
+import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.SaveButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pages.ViewPage;
+import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+import javafx.embed.swing.SwingFXUtils;
 
 /**
  * Controller class for the scene.
@@ -31,6 +40,8 @@ public class SceneController extends Observable implements Observer {
   private GraphicsContext gc;
   // The dimensions of the canvas.
   private Vector2D canvasDimensions;
+  // The primary stage.
+  private final Stage primaryStage;
 
   /**
    * Constructor for the SceneController.
@@ -40,7 +51,7 @@ public class SceneController extends Observable implements Observer {
    */
   public SceneController(Stage primaryStage) throws FileNotFoundException {
     this.scene = new Scene(new StackPane(), 1280, 720);
-
+    this.primaryStage = primaryStage;
     scene.getStylesheets().add(
         Objects.requireNonNull(getClass().getResource("/view/stylesheet.css")).toExternalForm()
     );
@@ -49,6 +60,7 @@ public class SceneController extends Observable implements Observer {
     this.viewPage = new ViewPage();
     initPlayButton();
     initDeleteButton();
+    initSaveButton();
   }
 
   /**
@@ -98,6 +110,9 @@ public class SceneController extends Observable implements Observer {
     gc.fillRect(pos.getx0(), pos.getx1(), 1, 1);
   }
 
+  /**
+   * Clears the canvas.
+   */
   public void clearCanvas() {
     gc.clearRect(0, 0, canvasDimensions.getx0(), canvasDimensions.getx1());
   }
@@ -107,85 +122,149 @@ public class SceneController extends Observable implements Observer {
   }
 
   /**
-   * Fetches the javaFX play button and adds an action listener to it.
-   */
-  private void initPlayButton() {
-    try {
-      VBox pageElements = null;
-      for (Node node : viewPage.getChildren()) {
-        if (node instanceof VBox) {
-          pageElements = (VBox) node;
-          break;
-        }
-      }
-      BorderPane topBar = null;
-      for (Node node : pageElements.getChildren()) {
-        if (node instanceof BorderPane) {
-          topBar = (BorderPane) node;
-          break;
-        }
-      }
-      HBox buttonContainer = (HBox) topBar.getLeft();
-      PlayButton playButton;
-      for (Node node : buttonContainer.getChildren()) {
-        if (node instanceof PlayButton) {
-          playButton = (PlayButton) node;
-          playButton.setOnAction(e -> {
-            setChanged();
-            notifyObservers();
-          });
-        }
-      }
-    } catch (Exception e) {
-      throw new RuntimeException("ERROR");
-    }
-  }
-
-  public void initDeleteButton() {
-    try {
-      VBox pageElements = null;
-      for (Node node : viewPage.getChildren()) {
-        if (node instanceof VBox) {
-          pageElements = (VBox) node;
-          break;
-        }
-      }
-      BorderPane topBar = null;
-      for (Node node : pageElements.getChildren()) {
-        if (node instanceof BorderPane) {
-          topBar = (BorderPane) node;
-          break;
-        }
-      }
-      HBox buttonContainer = (HBox) topBar.getLeft();
-      DeleteButton deleteButton;
-      for (Node node : buttonContainer.getChildren()) {
-        if (node instanceof DeleteButton) {
-          deleteButton = (DeleteButton) node;
-          deleteButton.setOnAction(e -> {
-            clearCanvas();
-            notifyObservers();
-          });
-        }
-      }
-    } catch (Exception e) {
-      throw new RuntimeException("ERROR");
-    }
-  }
-
-  /**
-   * update method called for each pixel drawn in chaos game.
+   * Saves the fractal image to a file.
    *
-   * @param o     the observable object.
-   * @param arg   an argument passed to the {@code notifyObservers}
-   *                 method.
+   * @param canvasDimensions The dimensions of the canvas.
    */
-  @Override
-  public void update(Observable o, Object arg) {
-    if (o instanceof ChaosGame) {
-      if (arg instanceof Vector2D) {
-        drawPixel((Vector2D) arg);
+  public void saveFractalImage(Vector2D canvasDimensions) {
+    Canvas canvas;
+    try {
+      StackPane root = (StackPane) (viewPage.getChildren().get(0)).lookup("#fractal-view");
+      canvas = (Canvas) root.getChildren().get(0);
+    } catch (Exception e) {
+      throw new RuntimeException("Could not find canvas");
+    }
+
+    FileChooser saveFile = new FileChooser();
+    saveFile.setTitle("Save Image");
+
+    File file = saveFile.showSaveDialog(primaryStage);
+    if (file != null) {
+      try {
+        WritableImage writableImage = new WritableImage((int) canvasDimensions.getx0(), (int) canvasDimensions.getx1());
+        canvas.snapshot(new SnapshotParameters(), writableImage);
+        RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        ImageIO.write(renderedImage, "png", file);
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     }
   }
-}
+
+    /**
+     * Fetches the javaFX play button and adds an action listener to it.
+     */
+    private void initPlayButton () {
+      try {
+        VBox pageElements = null;
+        for (Node node : viewPage.getChildren()) {
+          if (node instanceof VBox) {
+            pageElements = (VBox) node;
+            break;
+          }
+        }
+        BorderPane topBar = null;
+        for (Node node : pageElements.getChildren()) {
+          if (node instanceof BorderPane) {
+            topBar = (BorderPane) node;
+            break;
+          }
+        }
+        HBox buttonContainer = (HBox) topBar.getLeft();
+        PlayButton playButton;
+        for (Node node : buttonContainer.getChildren()) {
+          if (node instanceof PlayButton) {
+            playButton = (PlayButton) node;
+            playButton.setOnAction(e -> {
+              setChanged();
+              notifyObservers();
+            });
+          }
+        }
+      } catch (Exception e) {
+        throw new RuntimeException("ERROR");
+      }
+    }
+
+    public void initDeleteButton () {
+      try {
+        VBox pageElements = null;
+        for (Node node : viewPage.getChildren()) {
+          if (node instanceof VBox) {
+            pageElements = (VBox) node;
+            break;
+          }
+        }
+        BorderPane topBar = null;
+        for (Node node : pageElements.getChildren()) {
+          if (node instanceof BorderPane) {
+            topBar = (BorderPane) node;
+            break;
+          }
+        }
+        HBox buttonContainer = (HBox) topBar.getLeft();
+        DeleteButton deleteButton;
+        for (Node node : buttonContainer.getChildren()) {
+          if (node instanceof DeleteButton) {
+            deleteButton = (DeleteButton) node;
+            deleteButton.setOnAction(e -> {
+              clearCanvas();
+              notifyObservers();
+            });
+          }
+        }
+      } catch (Exception e) {
+        throw new RuntimeException("ERROR");
+      }
+    }
+
+    public void initSaveButton () {
+      try {
+        VBox pageElements = null;
+        for (Node node : viewPage.getChildren()) {
+          if (node instanceof VBox) {
+            pageElements = (VBox) node;
+            break;
+          }
+        }
+        BorderPane topBar = null;
+        for (Node node : pageElements.getChildren()) {
+          if (node instanceof BorderPane) {
+            topBar = (BorderPane) node;
+            break;
+          }
+        }
+        HBox buttonContainer = (HBox) topBar.getLeft();
+        SaveButton saveButton;
+        for (Node node : buttonContainer.getChildren()) {
+          if (node instanceof SaveButton) {
+            saveButton = (SaveButton) node;
+            saveButton.setOnAction(e -> {
+              saveFractalImage(canvasDimensions);
+              System.out.println("Save button pressed");
+              setChanged();
+              notifyObservers();
+            });
+          }
+        }
+      } catch (Exception e) {
+        throw new RuntimeException("ERROR");
+      }
+    }
+
+    /**
+     * update method called for each pixel drawn in chaos game.
+     *
+     * @param o     the observable object.
+     * @param arg   an argument passed to the {@code notifyObservers}
+     *                 method.
+     */
+    @Override
+    public void update (Observable o, Object arg){
+      if (o instanceof ChaosGame) {
+        if (arg instanceof Vector2D) {
+          drawPixel((Vector2D) arg);
+        }
+      }
+    }
+  }

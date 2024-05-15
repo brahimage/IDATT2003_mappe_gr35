@@ -33,6 +33,14 @@ public class MainUI extends Application implements Observer {
         // Loading the canvas calculates the size of certain elements dynamically.
         // Because of this, it must be done AFTER the stage is shown.
         sceneController.loadCanvas();
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            sceneController.loadCanvas();
+        });
+
+        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            sceneController.loadCanvas();
+        });
+
     }
 
     /**
@@ -49,7 +57,7 @@ public class MainUI extends Application implements Observer {
         if (selectedChaosGame.isEmpty()) {
             return;
         }
-        String path = "ChaosGames\\" + selectedChaosGame + ".json";
+        String path = "ChaosGames/" + selectedChaosGame + ".json";
         ChaosGameDescription gameDescription;
         try {
             gameDescription = ChaosGameFileHandler.readFromFile(path);
