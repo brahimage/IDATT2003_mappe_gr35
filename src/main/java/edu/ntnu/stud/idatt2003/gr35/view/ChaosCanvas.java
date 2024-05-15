@@ -4,6 +4,8 @@ import edu.ntnu.stud.idatt2003.gr35.model.math.Matrix2x2;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
 
+import static java.lang.Math.abs;
+
 /**
  * Represents a canvas for drawing points in a 2D plane.
  */
@@ -16,8 +18,9 @@ public class ChaosCanvas {
   // The minimum and maximum coordinates of the canvas.
   private Vector2D minCoords;
   private Vector2D maxCoords;
-  // The affine transformation that transforms coordinates to indices in the canvas array.
-  private AffineTransform2D transformCoordsToIndices;
+  // Scaler values used to transform coordinates to indices.
+  private double horizontalScaler;
+  private double verticalScaler;
 
   /**
    * Constructs a ChaosCanvas object with the specified width, height, minimum coordinates, and maximum coordinates.
@@ -28,25 +31,14 @@ public class ChaosCanvas {
    * @param maxCoords The maximum coordinates of the canvas.
    */
   public ChaosCanvas(int width, int height, Vector2D minCoords, Vector2D maxCoords) {
-    // Calculate the affine transformation matrix for the affine transformation.
-    Matrix2x2 A = new Matrix2x2(
-        0,
-        (height - 1) / (minCoords.getx1() - maxCoords.getx1()),
-        (width - 1) / (maxCoords.getx0() - minCoords.getx0()),
-        0
-    );
-    // Calculate the translation vector for the affine transformation.
-    Vector2D b = new Vector2D(
-        ((height - 1) * maxCoords.getx1()) / (maxCoords.getx1() - minCoords.getx1()),
-        ((width - 1) * minCoords.getx0()) / (minCoords.getx0() - maxCoords.getx0())
-    );
     // Set the fields.
     this.width = width;
     this.height = height;
     this.minCoords = minCoords;
     this.maxCoords = maxCoords;
-    this.transformCoordsToIndices = new AffineTransform2D(A, b);
-    this.canvas = new int[height][width];
+    this.horizontalScaler = (width - 1) / abs(maxCoords.getx0() - minCoords.getx0());
+    this.verticalScaler = (height - 1) / abs(maxCoords.getx1() - minCoords.getx1());
+    this.canvas = new int[width][height];
   }
 
   /**
@@ -61,16 +53,24 @@ public class ChaosCanvas {
     return canvas[x0][x1];
   }
 
+  public Vector2D transformCoordsToIndices(Vector2D point) {
+    double x0 = (point.getx0() + abs(minCoords.getx0())) * horizontalScaler;
+    double x1 = (point.getx1() + abs(minCoords.getx1())) * verticalScaler;
+    return new Vector2D(x0, x1);
+  }
+
   /**
    * Puts a pixel at the specified point (sets value to 1).
    *
    * @param point The point to put the pixel at.
+   * @return The index of the pixel in the canvas array.
    */
-  public void putPixel(Vector2D point) {
-    Vector2D v = transformCoordsToIndices.transform(point);
+  public Vector2D putPixel(Vector2D point) {
+    Vector2D v = transformCoordsToIndices(point);
     int x0 = (int) v.getx0();
     int x1 = (int) v.getx1();
     canvas[x0][x1] = 1;
+    return new Vector2D(x0, x1);
   }
 
   /**
@@ -86,15 +86,15 @@ public class ChaosCanvas {
    * Clears the canvas (sets all values to 0).
    */
   public void clear() {
-    canvas = new int[height][width];
+    canvas = new int[width][height];
   }
 
   /**
    * Prints the canvas to the console.
    */
   public void printCanvas() {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
         System.out.print(canvas[i][j] == 1 ? "*" : " ");
       }
       System.out.println();

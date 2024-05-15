@@ -1,19 +1,18 @@
 package edu.ntnu.stud.idatt2003.gr35;
 
-import edu.ntnu.stud.idatt2003.gr35.controller.ChaosGameObserver;
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameDescription;
+import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
 import edu.ntnu.stud.idatt2003.gr35.view.ChaosCanvas;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.Observable;
 import java.util.Random;
 
 /**
  * Represents a chaos game that can be run with a specified number of steps.
  */
-public class ChaosGame {
-
-  private List<ChaosGameObserver> observers = new ArrayList<>();
+public class ChaosGame extends Observable {
   // The canvas for the chaos game.
   private final ChaosCanvas canvas;
   // The current game description for the chaos game.
@@ -66,43 +65,16 @@ public class ChaosGame {
     init();
 
     // Get the number of transforms in the game description to use for random index generation.
-    int nrOfTransforms = gameDescription.getTransforms().size();
+    List<Transform2D> transforms = gameDescription.getTransforms();
 
     for (int i = 0; i < steps; i++) {
-      int randomIndex = rand.nextInt(nrOfTransforms);
-      Vector2D newPoint = gameDescription.getTransforms().get(randomIndex).transform(currentPoint);
-      canvas.putPixel(newPoint);
+      int randomIndex = rand.nextInt(transforms.size());
+      Vector2D newPoint = transforms.get(randomIndex).transform(currentPoint);
+      Vector2D coords = canvas.putPixel(newPoint);
       currentPoint.setx0(newPoint.getx0());
       currentPoint.setx1(newPoint.getx1());
-    }
-  }
-
-  /**
-   * Adds an observer to the chaos game.
-   *
-   * @param observer The observer to add.
-   */
-  public void addObserver(ChaosGameObserver observer) {
-    observers.add(observer);
-  }
-
-  /**
-   * Removes an observer from the chaos game.
-   *
-   * @param observer The observer to remove.
-   */
-  public void removeObserver(ChaosGameObserver observer) {
-    observers.remove(observer);
-  }
-
-  /**
-   * Notifies all observers of the chaos game.
-   *
-   * @param o The object to notify the observers with.
-   */
-  public void notifyObservers(Object o) {
-    for (ChaosGameObserver observer : observers) {
-      observer.update(o);
+      setChanged();
+      notifyObservers(coords);
     }
   }
 }

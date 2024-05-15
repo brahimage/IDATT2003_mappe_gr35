@@ -14,26 +14,36 @@ import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+/**
+ * A pop-up window that allows the user to input values for a variable page.
+ */
 public class VariablePagePopUp extends Stage {
+  // TextFields for the user to input values for min and max coordinates
   private final DoubleTextField x0MinCoordField;
   private final DoubleTextField x1MinCoordField;
   private final DoubleTextField x0MaxCoordField;
   private final DoubleTextField x1MaxCoordField;
 
+  // TextField for the user to input a constant value
   private final DoubleTextField constantField;
 
+  // TextFields for the user to input values for a matrix used in an affine transformation
   private final DoubleTextField a00MatrixField;
   private final DoubleTextField a01MatrixField;
   private final DoubleTextField a10MatrixField;
   private final DoubleTextField a11MatrixField;
 
+  // TextFields for the user to input values for a vector used in an affine transformation
   private final DoubleTextField x0VectorField;
   private final DoubleTextField x1VectorField;
 
+  // TextField for the user to input a step value
   private final IntTextField stepField;
 
+  // The root of the scene
   private final StackPane root;
 
+  // Layout elements
   VBox pageElementsVBox = new VBox(10);
   HBox cancelConfirmButtonHBox = new HBox(10);
   HBox minCoordsHBox = new HBox(10);
@@ -41,7 +51,9 @@ public class VariablePagePopUp extends Stage {
   HBox matrixHBox = new HBox(10);
   HBox vectorHBox = new HBox(10);
 
-
+  /**
+   * Constructs a new VariablePagePopUp.
+   */
   public VariablePagePopUp() {
     super();
 
@@ -148,54 +160,117 @@ public class VariablePagePopUp extends Stage {
     root.getChildren().addAll(pageElementsVBox);
   }
 
+  /**
+   * Gets the minimum x0 coordinate.
+   *
+   * @return the minimum x0 coordinate.
+   */
   public double getX0MinCoord() {
     return Double.parseDouble(x0MinCoordField.getText());
   }
 
+  /**
+   * Gets the minimum x1 coordinate.
+   *
+   * @return the minimum x1 coordinate.
+   */
   public double getX1MinCoord() {
     return Double.parseDouble(x1MinCoordField.getText());
   }
 
+  /**
+   * Gets the maximum x0 coordinate.
+   *
+   * @return the maximum x0 coordinate.
+   */
   public double getX0MaxCoord() {
     return Double.parseDouble(x0MaxCoordField.getText());
   }
 
+  /**
+   * Gets the maximum x1 coordinate.
+   *
+   * @return the maximum x1 coordinate.
+   */
   public double getX1MaxCoord() {
     return Double.parseDouble(x1MaxCoordField.getText());
   }
 
+  /**
+   * Gets the constant value.
+   *
+   * @return the constant value.
+   */
   public double getConstant() {
     return Double.parseDouble(constantField.getText());
   }
 
+  /**
+   * Gets the a00 value in the matrix of the affine transformation.
+   *
+   * @return the a00 value in the matrix.
+   */
   public double getA00Matrix() {
     return Double.parseDouble(a00MatrixField.getText());
   }
 
+  /**
+   * Gets the a01 value in the matrix of the affine transformation.
+   *
+   * @return the a01 value in the matrix.
+   */
   public double getA01Matrix() {
     return Double.parseDouble(a01MatrixField.getText());
   }
 
+  /**
+   * Gets the a10 value in the matrix of the affine transformation.
+   *
+   * @return the a10 value in the matrix.
+   */
   public double getA10Matrix() {
     return Double.parseDouble(a10MatrixField.getText());
   }
 
+  /**
+   * Gets the a11 value in the matrix of the affine transformation.
+   *
+   * @return the a11 value in the matrix.
+   */
   public double getA11Matrix() {
     return Double.parseDouble(a11MatrixField.getText());
   }
 
+  /**
+   * Gets the x0 value in the vector of the affine transformation.
+   *
+   * @return the x0 value in the vector.
+   */
   public double getX0Vector() {
     return Double.parseDouble(x0VectorField.getText());
   }
 
+  /**
+   * Gets the x1 value in the vector of the affine transformation.
+   *
+   * @return the x1 value in the vector.
+   */
   public double getX1Vector() {
     return Double.parseDouble(x1VectorField.getText());
   }
 
+  /**
+   * Gets the step value.
+   *
+   * @return the step value.
+   */
   public int getStep() {
     return Integer.parseInt(stepField.getText());
   }
 
+  /**
+   * Shows the pop-up window.
+   */
   public void showPopUp() {
     Scene scene = new Scene(root, 1120, 604);
     scene.getStylesheets().add(

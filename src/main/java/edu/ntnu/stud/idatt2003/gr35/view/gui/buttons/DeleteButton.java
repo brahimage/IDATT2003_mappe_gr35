@@ -6,7 +6,15 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * A button that deletes an item.
+ */
 public class DeleteButton extends Button {
+  /**
+   * Constructs a new DeleteButton.
+   *
+   * @throws FileNotFoundException If the icon file is not found.
+   */
   public DeleteButton() throws FileNotFoundException {
     super();
 

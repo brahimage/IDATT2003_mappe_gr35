@@ -45,6 +45,9 @@ public class ChaosGameDescriptionFactory {
     }
 
     // The Barnsley Fern
+    minCoords = new Vector2D(-3, 0);
+    maxCoords = new Vector2D(3, 10);
+
     transforms = new ArrayList<>();
     transforms.add(new AffineTransform2D(
         new Matrix2x2(0, 0, 0, .16),
@@ -69,9 +72,13 @@ public class ChaosGameDescriptionFactory {
       throw new RuntimeException(e);
     }
 
+    minCoords = new Vector2D(-1.6, -1);
+    maxCoords = new Vector2D(1.6, 1);
+
     // Julia transform with c = -.75+.1i
     transforms = new ArrayList<>();
     transforms.add(new JuliaTransform(new Complex(-.75, .1), Sign.POSITIVE));
+    transforms.add(new JuliaTransform(new Complex(-.75, .1), Sign.NEGATIVE));
     description = new ChaosGameDescription(minCoords, maxCoords, transforms);
     try {
       ChaosGameFileHandler.writeToFile(description, "ChaosGames/Julia.json");
