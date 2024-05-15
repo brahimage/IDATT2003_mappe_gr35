@@ -46,6 +46,9 @@ public class MainUI extends Application implements Observer {
     public void update(Observable o, Object arg) {
         // Get the selected chaos game from drop down menu loaded by scene controller.
         String selectedChaosGame = sceneController.getChosenGame();
+        if (selectedChaosGame.isEmpty()) {
+            return;
+        }
         String path = "ChaosGames\\" + selectedChaosGame + ".json";
         ChaosGameDescription gameDescription;
         try {
