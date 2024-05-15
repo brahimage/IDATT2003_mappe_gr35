@@ -18,19 +18,20 @@ public class PlayButton extends Button {
   public PlayButton() throws FileNotFoundException {
     super();
 
-    Image icon = new Image(new FileInputStream("src/main/resources/icons/play-icon.png"));
-    ImageView iconView = new ImageView(icon);
+    try {
+      Image icon = new Image(new FileInputStream("src/main/resources/icons/play-icon.png"));
+      ImageView iconView = new ImageView(icon);
 
-    iconView.setFitWidth(36);
-    iconView.setFitHeight(36);
+      this.setMinSize(60, 60);
 
-    this.setGraphic(iconView);
-    this.setId("small-button");
+      iconView.setFitWidth(36);
+      iconView.setFitHeight(36);
 
-    this.setOnAction(e -> {
-          System.out.println("Play button clicked");
-          // TODO: Add functionality
-        }
-    );
+      this.setGraphic(iconView);
+      this.setId("small-button");
+
+    } catch (FileNotFoundException e) {
+      System.out.println("File not found");
+    }
   }
 }
