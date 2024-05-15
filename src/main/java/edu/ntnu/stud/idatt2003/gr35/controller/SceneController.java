@@ -4,6 +4,7 @@ import edu.ntnu.stud.idatt2003.gr35.ChaosGame;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.DeleteButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.PlayButton;
+import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.QuitButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.SaveButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pages.ViewPage;
 import java.awt.image.RenderedImage;
@@ -61,6 +62,7 @@ public class SceneController extends Observable implements Observer {
     initPlayButton();
     initDeleteButton();
     initSaveButton();
+    initQuitButton();
   }
 
   /**
@@ -250,6 +252,37 @@ public class SceneController extends Observable implements Observer {
       } catch (Exception e) {
         throw new RuntimeException("ERROR");
       }
+    }
+
+    public void initQuitButton() {
+        try {
+            VBox pageElements = null;
+            for (Node node : viewPage.getChildren()) {
+            if (node instanceof VBox) {
+                pageElements = (VBox) node;
+                break;
+            }
+            }
+            BorderPane topBar = null;
+            for (Node node : pageElements.getChildren()) {
+            if (node instanceof BorderPane) {
+                topBar = (BorderPane) node;
+                break;
+            }
+            }
+            HBox buttonContainer = (HBox) topBar.getLeft();
+            QuitButton quitButton;
+            for (Node node : buttonContainer.getChildren()) {
+            if (node instanceof QuitButton) {
+                quitButton = (QuitButton) node;
+                quitButton.setOnAction(e -> {
+                System.exit(0);
+                });
+            }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("ERROR");
+        }
     }
 
     /**
