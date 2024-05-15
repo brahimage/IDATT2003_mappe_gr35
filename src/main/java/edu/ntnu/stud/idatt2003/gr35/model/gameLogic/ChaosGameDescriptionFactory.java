@@ -45,8 +45,8 @@ public class ChaosGameDescriptionFactory {
     }
 
     // The Barnsley Fern
-    minCoords = new Vector2D(-3, 0);
-    maxCoords = new Vector2D(3, 10);
+    minCoords = new Vector2D(-2.4, 0);
+    maxCoords = new Vector2D(2.4, 9.4);
 
     transforms = new ArrayList<>();
     transforms.add(new AffineTransform2D(
