@@ -28,6 +28,8 @@ public class ViewPage extends StackPane {
   public ViewPage() throws FileNotFoundException {
     super();
 
+    selectedChaosGame = "";
+
     this.setId("view-page");
 
     VBox pageElements = new VBox();
