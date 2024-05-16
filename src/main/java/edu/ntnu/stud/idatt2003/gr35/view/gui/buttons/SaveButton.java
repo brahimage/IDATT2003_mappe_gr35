@@ -18,6 +18,7 @@ public class SaveButton extends Button {
 
   public SaveButton() throws FileNotFoundException {
     super();
+    this.setText("Save as image");
 
     try {
       Image icon = new Image(new FileInputStream("src/main/resources/icons/save-icon.png"));

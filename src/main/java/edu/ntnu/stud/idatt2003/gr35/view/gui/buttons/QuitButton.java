@@ -6,7 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * A button that quits the application.
+ */
 public class QuitButton extends Button {
+
+  /**
+   * Constructs a new QuitButton.
+   *
+   * @throws FileNotFoundException If the icon file is not found.
+   */
   public QuitButton() throws FileNotFoundException {
     super();
 
