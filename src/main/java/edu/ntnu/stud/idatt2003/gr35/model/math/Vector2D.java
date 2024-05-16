@@ -101,4 +101,14 @@ public class Vector2D implements Serializable {
         double x1 = this.x1 * scaler;
         return new Vector2D(x0, x1);
     }
+
+    /**
+     * Overides the toString method to allow visualizing the vector.
+     *
+     * @return Returns a string representation of the vector.
+     */
+    @Override
+    public String toString() {
+        return "(" + x0 + ", " + x1 + ")";
+    }
 }
