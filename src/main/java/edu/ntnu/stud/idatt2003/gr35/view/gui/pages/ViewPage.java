@@ -5,6 +5,7 @@ import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.DeleteButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.PlayButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.QuitButton;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.buttons.SaveButton;
+import edu.ntnu.stud.idatt2003.gr35.view.gui.pageelements.IntTextField;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageswitchbuttons.VariablePopUpButton;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,11 +18,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
 /**
  * The main page of the application where the user can view the fractal.
  */
 public class ViewPage extends StackPane {
   private String selectedChaosGame;
+  private int stepCount = 10000;
+
   /**
    * Constructs a new ViewPage.
    *
@@ -92,6 +97,15 @@ public class ViewPage extends StackPane {
     PlayButton playButton = new PlayButton();
     SaveButton saveButton = new SaveButton();
     QuitButton quitButton = new QuitButton();
+    IntTextField stepField = new IntTextField();
+    VBox stepFieldContainer = new VBox();
+    Text stepText = new Text("Number of steps:");
+    stepField.setId("step-field");
+    stepText.setId("step-text");
+    stepField.setPromptText("Enter number of steps...");
+    stepFieldContainer.getChildren().addAll(stepText, stepField);
+    stepFieldContainer.setId("step-field-container");
+    stepFieldContainer.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
     ComboBox<String> comboBox = new ComboBox<>();
 
     // Get paths of all .json files in the ChaosGames directory
@@ -114,12 +128,23 @@ public class ViewPage extends StackPane {
 
     // Add a listener to the selected value
     selectedValue.addListener((observable, oldValue, newValue) -> {
-          System.out.println("Selected value: " + newValue);
-          selectedChaosGame = newValue;
-        });
+      System.out.println("Selected value: " + newValue);
+      selectedChaosGame = newValue;
+    });
+
+    stepField.textProperty().addListener((observable, oldValue, newValue) -> {
+      if (!newValue.isEmpty()) {
+        try {
+          stepCount = Integer.parseInt(newValue);
+        } catch (NumberFormatException e) {
+          stepField.setText(oldValue);
+        }
+      }
+    });
 
     HBox buttonContainer = new HBox();
-    buttonContainer.getChildren().addAll(playButton, deleteButton, comboBox, variablePopUpButton, saveButton);
+    buttonContainer.getChildren()
+        .addAll(playButton, deleteButton, comboBox, variablePopUpButton, saveButton, stepFieldContainer);
 
     buttonContainer.setSpacing(20);
 
@@ -136,5 +161,14 @@ public class ViewPage extends StackPane {
    */
   public String getSelectedChaosGame() {
     return selectedChaosGame;
+  }
+
+  /**
+   * Gets the step count.
+   *
+   * @return Returns the step count.
+   */
+  public int getStepCount() {
+    return stepCount;
   }
 }

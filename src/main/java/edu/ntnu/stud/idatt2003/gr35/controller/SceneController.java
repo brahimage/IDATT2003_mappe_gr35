@@ -133,6 +133,15 @@ public class SceneController extends Observable implements Observer {
   }
 
   /**
+   * Gets the number of steps to be taken in the chaos game.
+   *
+   * @return Returns the number of steps to be taken in the chaos game.
+   */
+  public int getStepCount() {
+    return viewPage.getStepCount();
+  }
+
+  /**
    * Saves the fractal image to a file.
    *
    * @param canvasDimensions The dimensions of the canvas.

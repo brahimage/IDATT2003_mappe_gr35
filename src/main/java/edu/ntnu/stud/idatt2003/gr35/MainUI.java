@@ -71,6 +71,6 @@ public class MainUI extends Application implements Observer {
         // The sceneController will draw as the pixels are modified.
         chaosGame.addObserver(sceneController);
         chaosGame.init();
-        chaosGame.runSteps(10000);
+        chaosGame.runSteps(sceneController.getStepCount());
     }
 }
