@@ -26,8 +26,8 @@ public class QuitButton extends Button {
 
       this.setMinSize(60, 60);
 
-      iconView.setFitWidth(36);
-      iconView.setFitHeight(36);
+      iconView.setFitWidth(28);
+      iconView.setFitHeight(28);
 
       this.setGraphic(iconView);
       this.setId("small-button");
