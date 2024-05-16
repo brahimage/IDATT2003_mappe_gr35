@@ -142,6 +142,11 @@ public class SceneController extends Observable implements Observer {
     gc.clearRect(0, 0, canvasDimensions.getx0(), canvasDimensions.getx1());
   }
 
+  /**
+   * Gets the chosen chaos game from the view page.
+   *
+   * @return Returns the chosen chaos game.
+   */
   public String getChosenGame() {
     return viewPage.getSelectedChaosGame();
   }
@@ -221,6 +226,9 @@ public class SceneController extends Observable implements Observer {
     }
   }
 
+  /**
+   * Fetches the javaFX delete button and adds an action listener to it.
+   */
   public void initDeleteButton() {
     try {
       VBox pageElements = null;
@@ -253,6 +261,9 @@ public class SceneController extends Observable implements Observer {
     }
   }
 
+  /**
+   * Fetches the javaFX save button and adds an action listener to it.
+   */
   public void initSaveButton() {
     try {
       VBox pageElements = null;
