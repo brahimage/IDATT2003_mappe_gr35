@@ -23,6 +23,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -42,6 +43,8 @@ public class SceneController extends Observable implements Observer {
   private Vector2D canvasDimensions;
   // The primary stage.
   private final Stage primaryStage;
+  // A boolean array to keep track of which pixels have been drawn.
+  private int[][] drawnPixels;
 
   /**
    * Constructor for the SceneController.
@@ -90,6 +93,7 @@ public class SceneController extends Observable implements Observer {
       gc = canvas.getGraphicsContext2D();
       canvasDimensions = new Vector2D(canvas.getWidth(), canvas.getHeight());
       clearCanvas();
+      drawnPixels = new int[(int) canvasDimensions.getx0()][(int) canvasDimensions.getx1()];
     } catch (Exception e) {
       throw new RuntimeException("Could not find canvas");
     }
@@ -113,6 +117,16 @@ public class SceneController extends Observable implements Observer {
     if (pos.equals(new Vector2D(-1, -1))) {
       return;
     }
+    // Increment the count for the pixel
+    drawnPixels[(int)pos.getx0()][(int)pos.getx1()]++;
+    // Determine the color based on the count
+    int count = drawnPixels[(int)pos.getx0()][(int)pos.getx1()];
+    Color brightBlue = Color.rgb(100, 200, 225);
+    Color darkBlue = Color.rgb(200, 70, 180);
+    Color color = brightBlue.interpolate(darkBlue, (double) count / 500);
+
+    // Draw the pixel with the determined color
+    gc.setFill(color);
     gc.fillRect(pos.getx0(), pos.getx1(), 1, 1);
   }
 
