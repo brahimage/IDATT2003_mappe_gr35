@@ -104,11 +104,21 @@ public class SceneController extends Observable implements Observer {
     if (gc == null) {
       throw new RuntimeException("GraphicsContext not initialized");
     }
-    if (pos.getx0() < 0 || pos.getx0() >= canvasDimensions.getx0() || pos.getx1() < 0
-        || pos.getx1() >= canvasDimensions.getx1()) {
-      throw new IllegalArgumentException("Position out of bounds");
+//    if (pos.getx0() < 0 || pos.getx0() >= canvasDimensions.getx0() || pos.getx1() < 0
+//        || pos.getx1() >= canvasDimensions.getx1()) {
+//      throw new IllegalArgumentException("Position out of bounds");
+//    }
+    //todo: find out why some values of pos are outside of bounds still
+
+    if (pos.equals(new Vector2D(-1, -1))) {
+      return;
     }
     gc.fillRect(pos.getx0(), pos.getx1(), 1, 1);
+  }
+
+  public boolean verifyIndices(Vector2D pos) {
+    return pos.getx0() >= 0 && pos.getx0() < canvasDimensions.getx0() && pos.getx1() >= 0
+        && pos.getx1() < canvasDimensions.getx1();
   }
 
   /**

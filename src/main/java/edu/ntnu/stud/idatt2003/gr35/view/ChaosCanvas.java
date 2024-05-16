@@ -67,10 +67,18 @@ public class ChaosCanvas {
    */
   public Vector2D putPixel(Vector2D point) {
     Vector2D v = transformCoordsToIndices(point);
-    int x0 = (int) v.getx0();
-    int x1 = (int) v.getx1();
-    canvas[x0][x1] = 1;
-    return new Vector2D(x0, x1);
+    if (verifyIndices(v)) {
+      int x0 = (int) v.getx0();
+      int x1 = (int) v.getx1();
+      canvas[x0][x1] = 1;
+      return new Vector2D(x0, x1);
+    } else {
+      return new Vector2D(-1, -1);
+    }
+  }
+
+  public boolean verifyIndices(Vector2D pos) {
+    return pos.getx0() >= 0 && pos.getx0() < width && pos.getx1() >= 0 && pos.getx1() < height;
   }
 
   /**
