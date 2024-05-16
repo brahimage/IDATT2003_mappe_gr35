@@ -39,6 +39,9 @@ public class ViewPage extends StackPane {
     StackPane fractalView = new StackPane();
     Canvas fractalCanvas = new Canvas();
 
+    fractalView.setPadding(new javafx.geometry.Insets(20));
+
+
     /*
      * Dimensions of canvas is 20 pixels less than that of the fractal view on all sides.
      * This is to make sure that the canvas is not drawn on the border of the fractal view.
@@ -46,13 +49,19 @@ public class ViewPage extends StackPane {
      * if this value is lower than 40. (This may be affected by resolution changes)
      * When changing this value, make sure to test the scaling of the fractal view.
      */
+
+    fractalView.setMinSize(40, 40); // Adjust the values as needed
+
     fractalCanvas.widthProperty().bind(fractalView.widthProperty().subtract(40));
     fractalCanvas.heightProperty().bind(fractalView.heightProperty().subtract(40));
+
+//    fractalCanvas.setHeight(fractalView.getHeight() - 40);
+//    fractalCanvas.setWidth(fractalView.getWidth() - 40);
 
     fractalCanvas.setId("fractal-canvas");
     fractalView.setId("fractal-view");
     fractalView.getChildren().add(fractalCanvas);
-    fractalView.setAlignment(javafx.geometry.Pos.CENTER);
+    fractalView.setPadding(new javafx.geometry.Insets(20));
     pageElements.getChildren().addAll(topBar, fractalView);
     pageElements.setSpacing(20);
 

@@ -89,6 +89,7 @@ public class SceneController extends Observable implements Observer {
       Canvas canvas = (Canvas) root.getChildren().get(0);
       gc = canvas.getGraphicsContext2D();
       canvasDimensions = new Vector2D(canvas.getWidth(), canvas.getHeight());
+      clearCanvas();
     } catch (Exception e) {
       throw new RuntimeException("Could not find canvas");
     }
@@ -243,7 +244,6 @@ public class SceneController extends Observable implements Observer {
           saveButton.setOnAction(e -> {
             saveFractalImage(canvasDimensions);
             System.out.println("Save button pressed");
-            setChanged();
             notifyObservers();
           });
         }
