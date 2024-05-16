@@ -1,10 +1,13 @@
 package edu.ntnu.stud.idatt2003.gr35.view.gui.pages;
 
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageelements.DoubleTextField;
-import edu.ntnu.stud.idatt2003.gr35.view.gui.pageelements.IntTextField;
 import java.util.Objects;
+
+import edu.ntnu.stud.idatt2003.gr35.view.gui.pageswitchbuttons.TransformEntryButton;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -18,27 +21,26 @@ import javafx.scene.layout.HBox;
  * A pop-up window that allows the user to input values for a variable page.
  */
 public class VariablePagePopUp extends Stage {
+  // Textfield for the user to input the name of the new chaos game description
+  private final DoubleTextField nameField;
+
   // TextFields for the user to input values for min and max coordinates
   private final DoubleTextField x0MinCoordField;
   private final DoubleTextField x1MinCoordField;
   private final DoubleTextField x0MaxCoordField;
   private final DoubleTextField x1MaxCoordField;
 
-  // TextField for the user to input a constant value
-  private final DoubleTextField constantField;
 
-  // TextFields for the user to input values for a matrix used in an affine transformation
-  private final DoubleTextField a00MatrixField;
-  private final DoubleTextField a01MatrixField;
-  private final DoubleTextField a10MatrixField;
-  private final DoubleTextField a11MatrixField;
+  // Drop-down menu for the user to select transform type
+  private final ComboBox<String> transformTypeComboBox;
+  // Button for the user to add a transform
+  private final TransformEntryButton addTransformButton;
 
-  // TextFields for the user to input values for a vector used in an affine transformation
-  private final DoubleTextField x0VectorField;
-  private final DoubleTextField x1VectorField;
+  // Button to cancel
+  private final Button cancelButton;
 
-  // TextField for the user to input a step value
-  private final IntTextField stepField;
+  // Button to save
+  private final Button saveButton;
 
   // The root of the scene
   private final StackPane root;
@@ -48,8 +50,6 @@ public class VariablePagePopUp extends Stage {
   HBox cancelConfirmButtonHBox = new HBox(10);
   HBox minCoordsHBox = new HBox(10);
   HBox maxCoordsHBox = new HBox(10);
-  HBox matrixHBox = new HBox(10);
-  HBox vectorHBox = new HBox(10);
 
   /**
    * Constructs a new VariablePagePopUp.
@@ -59,30 +59,39 @@ public class VariablePagePopUp extends Stage {
 
     this.root = new StackPane();
 
+    this.nameField = new DoubleTextField();
+
     this.x0MinCoordField = new DoubleTextField();
     this.x1MinCoordField = new DoubleTextField();
     this.x0MaxCoordField = new DoubleTextField();
     this.x1MaxCoordField = new DoubleTextField();
 
-    this.constantField = new DoubleTextField();
+    this.transformTypeComboBox = new ComboBox<>();
+    String[] items = {"Affine", "Julia"};
+    transformTypeComboBox.getItems().addAll(items);
 
-    this.a00MatrixField = new DoubleTextField();
-    this.a01MatrixField = new DoubleTextField();
-    this.a10MatrixField = new DoubleTextField();
-    this.a11MatrixField = new DoubleTextField();
+    this.addTransformButton = new TransformEntryButton();
+    this.cancelButton = new Button("Cancel");
+    this.saveButton = new Button("Save");
 
-    this.x0VectorField = new DoubleTextField();
-    this.x1VectorField = new DoubleTextField();
+    cancelButton.setId("small-button");
+    saveButton.setId("small-button");
 
-    this.stepField = new IntTextField();
+    // Create HBox for name label and textField
+    HBox nameHBox = new HBox();
+    nameHBox.setId("textFieldHBox");
+    Label nameLabel = new Label("Name: ");
+    nameHBox.getChildren().addAll(nameLabel, nameField);
 
     GridPane minCoords = new GridPane();
     HBox x0HBox = new HBox();
+    x0HBox.setId("textFieldHBox");
     Label x0Label = new Label("x0: ");
     x0HBox.getChildren().addAll(x0Label, x0MinCoordField);
     x0HBox.setAlignment(Pos.CENTER);
 
     HBox x1HBox = new HBox();
+    x1HBox.setId("textFieldHBox");
     Label x1Label = new Label("x1: ");
     x1HBox.getChildren().addAll(x1Label, x1MinCoordField);
     x1HBox.setAlignment(Pos.CENTER);
@@ -95,67 +104,36 @@ public class VariablePagePopUp extends Stage {
 
     GridPane maxCoords = new GridPane();
     HBox x0HBox2 = new HBox();
+    x0HBox2.setId("textFieldHBox");
     Label x0Label2 = new Label("x0: ");
     x0HBox.getChildren().addAll(x0Label2, x0MaxCoordField);
     x0HBox.setAlignment(Pos.CENTER);
 
     HBox x1HBox2 = new HBox();
+    x1HBox2.setId("textFieldHBox");
     Label x1Label2 = new Label("x1: ");
     x1HBox.getChildren().addAll(x1Label2, x1MaxCoordField);
     x1HBox.setAlignment(Pos.CENTER);
 
     maxCoords.add(x0HBox2, 0, 0);
     maxCoords.add(x1HBox2, 0, 1);
-    maxCoords.setVgap(10);
+    maxCoords.setVgap(110);
     maxCoordsHBox.getChildren().addAll(maxCoords);
 
-    GridPane matrix = new GridPane();
+    HBox transformTypeHBox = new HBox();
+    transformTypeHBox.setId("textFieldHBox");
+    Label transformTypeLabel = new Label("Transform Type: ");
+    transformTypeHBox.getChildren().addAll(transformTypeLabel, transformTypeComboBox);
 
-    HBox a00MatrixHBox = new HBox();
-    Label a00MatrixLabel = new Label("a00: ");
-    a00MatrixHBox.getChildren().addAll(a00MatrixLabel, a00MatrixField);
-    a00MatrixHBox.setAlignment(Pos.CENTER_LEFT);
+    // Create HBox for add transform button
+    HBox addTransformButtonHBox = new HBox();
+    addTransformButtonHBox.getChildren().add(addTransformButton);
 
-    HBox a01MatrixHBox = new HBox();
-    Label a01MatrixLabel = new Label("a01: ");
-    a01MatrixHBox.getChildren().addAll(a01MatrixLabel, a01MatrixField);
-    a01MatrixHBox.setAlignment(Pos.CENTER_LEFT);
+    // Create HBox for cancel and save buttons
+    HBox cancelSaveButtonHBox = new HBox();
+    cancelSaveButtonHBox.getChildren().addAll(cancelButton, saveButton);
 
-    HBox a10MatrixHBox = new HBox();
-    Label a10MatrixLabel = new Label("a10: ");
-    a10MatrixHBox.getChildren().addAll(a10MatrixLabel, a10MatrixField);
-    a10MatrixHBox.setAlignment(Pos.CENTER_LEFT);
-
-    HBox a11MatrixHBox = new HBox();
-    Label a11MatrixLabel = new Label("a11: ");
-    a11MatrixHBox.getChildren().addAll(a11MatrixLabel, a11MatrixField);
-    a11MatrixHBox.setAlignment(Pos.CENTER_LEFT);
-
-    matrix.add(a00MatrixHBox, 0, 0);
-    matrix.add(a01MatrixHBox, 1, 0);
-    matrix.add(a10MatrixHBox, 0, 1);
-    matrix.add(a11MatrixHBox, 1, 1);
-    matrix.setHgap(10);
-    matrix.setVgap(10);
-    matrixHBox.getChildren().addAll(new Text("Matrix: "), matrix);
-
-    GridPane vector = new GridPane();
-    HBox x0VectorHBox = new HBox();
-    Label x0VectorLabel = new Label("x0: ");
-    x0VectorHBox.getChildren().addAll(x0VectorLabel, x0VectorField);
-    x0VectorHBox.setAlignment(Pos.CENTER_LEFT);
-
-    HBox x1VectorHBox = new HBox();
-    Label x1VectorLabel = new Label("x1: ");
-    x1VectorHBox.getChildren().addAll(x1VectorLabel, x1VectorField);
-    x1VectorHBox.setAlignment(Pos.CENTER_LEFT);
-
-    vector.add(x0VectorHBox, 0, 0);
-    vector.add(x1VectorHBox, 1, 0);
-    vector.setVgap(10);
-    vectorHBox.getChildren().addAll(new Text("Vector: "), vector);
-
-    pageElementsVBox.getChildren().addAll(minCoordsHBox, maxCoordsHBox, matrixHBox, vectorHBox, constantField, stepField);
+    pageElementsVBox.getChildren().addAll(nameHBox, minCoordsHBox, maxCoordsHBox, transformTypeHBox, addTransformButtonHBox, cancelSaveButtonHBox);
 
     root.getChildren().addAll(pageElementsVBox);
   }
@@ -197,75 +175,12 @@ public class VariablePagePopUp extends Stage {
   }
 
   /**
-   * Gets the constant value.
+   * Gets the input name.
    *
-   * @return the constant value.
+   * @return the name of the chaos game description.
    */
-  public double getConstant() {
-    return Double.parseDouble(constantField.getText());
-  }
-
-  /**
-   * Gets the a00 value in the matrix of the affine transformation.
-   *
-   * @return the a00 value in the matrix.
-   */
-  public double getA00Matrix() {
-    return Double.parseDouble(a00MatrixField.getText());
-  }
-
-  /**
-   * Gets the a01 value in the matrix of the affine transformation.
-   *
-   * @return the a01 value in the matrix.
-   */
-  public double getA01Matrix() {
-    return Double.parseDouble(a01MatrixField.getText());
-  }
-
-  /**
-   * Gets the a10 value in the matrix of the affine transformation.
-   *
-   * @return the a10 value in the matrix.
-   */
-  public double getA10Matrix() {
-    return Double.parseDouble(a10MatrixField.getText());
-  }
-
-  /**
-   * Gets the a11 value in the matrix of the affine transformation.
-   *
-   * @return the a11 value in the matrix.
-   */
-  public double getA11Matrix() {
-    return Double.parseDouble(a11MatrixField.getText());
-  }
-
-  /**
-   * Gets the x0 value in the vector of the affine transformation.
-   *
-   * @return the x0 value in the vector.
-   */
-  public double getX0Vector() {
-    return Double.parseDouble(x0VectorField.getText());
-  }
-
-  /**
-   * Gets the x1 value in the vector of the affine transformation.
-   *
-   * @return the x1 value in the vector.
-   */
-  public double getX1Vector() {
-    return Double.parseDouble(x1VectorField.getText());
-  }
-
-  /**
-   * Gets the step value.
-   *
-   * @return the step value.
-   */
-  public int getStep() {
-    return Integer.parseInt(stepField.getText());
+  public String getName() {
+    return nameField.getText();
   }
 
   /**
