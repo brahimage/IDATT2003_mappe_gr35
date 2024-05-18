@@ -35,6 +35,6 @@ public class DoubleTextField extends TextField {
    * @return True if the text is a double value, false otherwise.
    */
   private boolean validate(String text) {
-    return text.matches("[0-9]*\\.?[0-9]*");
+    return text.matches("-?[0-9]*\\.?[0-9]*");
   }
 }
