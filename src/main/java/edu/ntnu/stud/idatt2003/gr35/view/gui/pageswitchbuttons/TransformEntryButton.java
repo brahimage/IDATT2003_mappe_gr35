@@ -19,12 +19,9 @@ public class TransformEntryButton extends Button {
     this.setId("small-button");
     this.setPrefWidth(150);
 
-    // TODO: fetch the transform type from the view
-    String transformType = "Affine";
-
     // Opens a new pop-up window for adding a new variable.
     this.setOnAction(e -> {
-      new TransformEntryPagePopUp(pagePopUp, transformType).showPopUp();
+      new TransformEntryPagePopUp(pagePopUp).showPopUp();
     });
   }
 }

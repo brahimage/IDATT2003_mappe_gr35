@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,28 +20,26 @@ public class TransformEntryPagePopUp extends Stage {
   /**
    * Constructs a new TransformEntryPagePopUp.
    */
-  public TransformEntryPagePopUp(VariablePagePopUp pagePopUp, String transformType) {
+  public TransformEntryPagePopUp(VariablePagePopUp pagePopUp) {
     super();
     this.root = new StackPane();
     this.pagePopUp = pagePopUp;
-    populate(transformType);
+    populate(pagePopUp);
   }
 
   /**
    * Populates root stackpane with the elements of the transform entry page.
    *
-   * @param transformType The type of transform to be added.
+   * @param pagePopUp The VariablePagePopUp that the transform is to be added to.
    */
-  public void populate(String transformType) {
+  public void populate(VariablePagePopUp pagePopUp) {
+    String transformType = pagePopUp.getChosenTransformType();
     switch (transformType) {
-      case "Affine":
-        root.getChildren().add(TransformEntryPageBuilder.buildAffineTransformationPage(this));
-        break;
-      case "Julia":
-        root.getChildren().add(TransformEntryPageBuilder.buildJuliaTransformationPage());
-        break;
-      default:
-        throw new IllegalArgumentException("Invalid transform type: " + transformType);
+      case "Affine" -> root.getChildren().add(TransformEntryPageBuilder.buildAffineTransformationPage(this));
+      case "Julia" -> root.getChildren().add(TransformEntryPageBuilder.buildJuliaTransformationPage());
+      default -> {
+        new Alert(Alert.AlertType.WARNING, "Invalid transform type: " + transformType + ". Please choose a valid transform type.").show();
+      }
     }
   }
 

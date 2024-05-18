@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageswitchbuttons.TransformEntryButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -40,6 +42,7 @@ public class VariablePagePopUp extends Stage {
 
   // Drop-down menu for the user to select transform type
   private final ComboBox<String> transformTypeComboBox;
+  private String choice;
   // Button for the user to add a transform
   private final TransformEntryButton addTransformButton;
 
@@ -80,6 +83,10 @@ public class VariablePagePopUp extends Stage {
     this.x1MaxCoordField = new DoubleTextField();
 
     this.transformTypeComboBox = new ComboBox<>();
+    choice = "";
+
+    transformTypeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> choice = newValue);
+
     String[] items = {"Affine", "Julia"};
     transformTypeComboBox.getItems().addAll(items);
 
@@ -199,6 +206,15 @@ public class VariablePagePopUp extends Stage {
    */
   public double getX0MaxCoord() {
     return Double.parseDouble(x0MaxCoordField.getText());
+  }
+
+  /**
+   * Gets the selected transform type from the drop-down menu.
+   *
+   * @return the selected choice.
+   */
+  public String getChosenTransformType() {
+    return choice;
   }
 
   /**
