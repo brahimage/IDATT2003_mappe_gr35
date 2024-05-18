@@ -13,10 +13,7 @@ import java.util.Objects;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageswitchbuttons.TransformEntryButton;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -32,7 +29,7 @@ public class VariablePagePopUp extends Stage {
   private ViewPage viewPage;
 
   // Textfield for the user to input the name of the new chaos game description
-  private final DoubleTextField nameField;
+  private final TextField nameField;
 
   // TextFields for the user to input values for min and max coordinates
   private final DoubleTextField x0MinCoordField;
@@ -75,7 +72,7 @@ public class VariablePagePopUp extends Stage {
 
     this.root = new StackPane();
 
-    this.nameField = new DoubleTextField();
+    this.nameField = new TextField();
 
     this.x0MinCoordField = new DoubleTextField();
     this.x1MinCoordField = new DoubleTextField();
