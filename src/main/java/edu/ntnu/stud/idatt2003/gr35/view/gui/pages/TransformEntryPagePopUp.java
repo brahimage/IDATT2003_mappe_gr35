@@ -16,31 +16,36 @@ public class TransformEntryPagePopUp extends Stage {
   // Contains a StackPane root that can be filled by classes representing different types of transform
   private final StackPane root;
   private VariablePagePopUp pagePopUp;
+  boolean failed;
 
   /**
    * Constructs a new TransformEntryPagePopUp.
    */
   public TransformEntryPagePopUp(VariablePagePopUp pagePopUp) {
     super();
+    failed = false;
     this.root = new StackPane();
     this.pagePopUp = pagePopUp;
-    populate(pagePopUp);
+    failed = populate(pagePopUp);
   }
 
   /**
    * Populates root stackpane with the elements of the transform entry page.
    *
    * @param pagePopUp The VariablePagePopUp that the transform is to be added to.
+   * @return true if the transform type is invalid, false otherwise.
    */
-  public void populate(VariablePagePopUp pagePopUp) {
+  public boolean populate(VariablePagePopUp pagePopUp) {
     String transformType = pagePopUp.getChosenTransformType();
     switch (transformType) {
       case "Affine" -> root.getChildren().add(TransformEntryPageBuilder.buildAffineTransformationPage(this));
       case "Julia" -> root.getChildren().add(TransformEntryPageBuilder.buildJuliaTransformationPage());
       default -> {
         new Alert(Alert.AlertType.WARNING, "Invalid transform type: " + transformType + ". Please choose a valid transform type.").show();
+        return true;
       }
     }
+    return false;
   }
 
   /**
@@ -52,8 +57,12 @@ public class TransformEntryPagePopUp extends Stage {
 
   /**
    * Shows the pop-up window.
+   * If the transform type is invalid, the method does nothing.
    */
   public void showPopUp() {
+    if (failed) {
+      return;
+    }
     Scene scene = new Scene(root, 620, 404);
     scene.getStylesheets().add(
         Objects.requireNonNull(getClass().getResource("/view/stylesheet.css")).toExternalForm());
