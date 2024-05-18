@@ -1,11 +1,15 @@
 package edu.ntnu.stud.idatt2003.gr35.view.gui.pages;
 
+import edu.ntnu.stud.idatt2003.gr35.model.math.Complex;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Matrix2x2;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Sign;
 import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
+import edu.ntnu.stud.idatt2003.gr35.model.transformations.JuliaTransform;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -104,9 +108,58 @@ public abstract class TransformEntryPageBuilder {
    *
    * @return The page for adding the Julia transformation.
    */
-  public static StackPane buildJuliaTransformationPage() {
-    // TODO - Implement
-    return new StackPane();
+  public static StackPane buildJuliaTransformationPage(TransformEntryPagePopUp stage) {
+    VBox pageElementsVBox = new VBox(10);
+
+    Text header = new Text("Julia Transformation");
+    header.setId("header");
+
+    Text constantHeader = new Text("Constant c");
+    constantHeader.setId("sub-header");
+
+    TextField realField = new TextField();
+    TextField imaginaryField = new TextField();
+
+    GridPane constantGrid = new GridPane();
+
+    constantGrid.add(new Text("Real"), 0, 0);
+    constantGrid.add(realField, 1, 0);
+    constantGrid.add(new Text("Imaginary"), 0, 1);
+    constantGrid.add(imaginaryField, 1, 1);
+
+    HBox signBox = new HBox();
+    ComboBox<String> signComboBox = new ComboBox<>();
+    signComboBox.getItems().addAll("Positive", "Negative");
+    signBox.getChildren().addAll(new Text("Sign: "), signComboBox);
+
+    Button saveButton = new Button("Save");
+    saveButton.setId("save-button");
+    Button cancelButton = new Button("Cancel");
+    cancelButton.setId("small-button");
+
+    cancelButton.setOnAction(e -> stage.close());
+    saveButton.setOnAction(e -> {
+      try {
+        double real = Double.parseDouble(realField.getText());
+        double imaginary = Double.parseDouble(imaginaryField.getText());
+        Sign sign = signComboBox.getValue().equals("Positive") ? Sign.POSITIVE : Sign.NEGATIVE;
+        transform = new JuliaTransform(new Complex(real, imaginary), sign);
+        stage.passTransform(transform);
+        stage.close();
+      } catch (Exception exc) {
+        new Alert(Alert.AlertType.WARNING, "Please enter valid numbers in all fields.").show();
+      }
+    });
+
+    HBox buttonBox = new HBox(10);
+    buttonBox.getChildren().addAll(saveButton, cancelButton);
+
+    pageElementsVBox.getChildren().addAll(header, constantHeader, constantGrid, signBox, buttonBox);
+    pageElementsVBox.paddingProperty().setValue(new javafx.geometry.Insets(20));
+
+    StackPane out = new StackPane();
+    out.getChildren().add(pageElementsVBox);
+    return out;
   }
 
   /**

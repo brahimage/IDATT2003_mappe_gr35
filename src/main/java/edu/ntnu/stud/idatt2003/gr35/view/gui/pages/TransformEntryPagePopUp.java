@@ -39,7 +39,7 @@ public class TransformEntryPagePopUp extends Stage {
     String transformType = pagePopUp.getChosenTransformType();
     switch (transformType) {
       case "Affine" -> root.getChildren().add(TransformEntryPageBuilder.buildAffineTransformationPage(this));
-      case "Julia" -> root.getChildren().add(TransformEntryPageBuilder.buildJuliaTransformationPage());
+      case "Julia" -> root.getChildren().add(TransformEntryPageBuilder.buildJuliaTransformationPage(this));
       default -> {
         new Alert(Alert.AlertType.WARNING, "Invalid transform type: " + transformType + ". Please choose a valid transform type.").show();
         return true;
