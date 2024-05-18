@@ -44,7 +44,7 @@ public class TransformEntryPagePopUp extends Stage {
    * Shows the pop-up window.
    */
   public void showPopUp() {
-    Scene scene = new Scene(root, 1120, 604);
+    Scene scene = new Scene(root, 620, 404);
     scene.getStylesheets().add(
         Objects.requireNonNull(getClass().getResource("/view/stylesheet.css")).toExternalForm());
 
