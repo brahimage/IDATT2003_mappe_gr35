@@ -101,7 +101,7 @@ public class VariablePagePopUp extends Stage {
         viewPage.updateComboBox();
         this.close();
       } catch (Exception exception) {
-        new Alert(Alert.AlertType.WARNING, "Exception occured: Make sure to fill out all fields correctly.").show();
+        new Alert(Alert.AlertType.WARNING, "Exception occurred: Make sure to fill out all fields correctly.").show();
       }
 
     });
