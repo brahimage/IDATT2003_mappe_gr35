@@ -75,7 +75,7 @@ public class VariablePagePopUp extends Stage {
     this.saveButton = new Button("Save");
 
     cancelButton.setId("small-button");
-    saveButton.setId("small-button");
+    saveButton.setId("save-button");
 
     cancelButton.setOnAction(e -> this.close());
 

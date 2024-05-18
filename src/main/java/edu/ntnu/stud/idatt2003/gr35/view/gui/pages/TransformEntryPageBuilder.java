@@ -58,7 +58,7 @@ public abstract class TransformEntryPageBuilder {
     translationVectorGrid.add(b1Field, 1, 1);
 
     Button saveButton = new Button("Save");
-    saveButton.setId("small-button");
+    saveButton.setId("save-button");
     Button cancelButton = new Button("Cancel");
     cancelButton.setId("small-button");
 
