@@ -93,6 +93,13 @@ public class VariablePagePopUp extends Stage {
     cancelButton.setOnAction(e -> this.close());
     saveButton.setOnAction(e -> {
       try {
+        if (getX0MinCoord() >= getX0MaxCoord() || getX1MinCoord() >= getX1MaxCoord()) {
+          throw new IllegalArgumentException("Min coordinates must be less than max coordinates.");
+        }
+        if (transforms.isEmpty()) {
+          throw new IllegalArgumentException("At least one transform must be added.");
+        }
+
         ChaosGameDescription chaosGameDescription = new ChaosGameDescription(
             new Vector2D(getX0MinCoord(), getX1MinCoord()),
             new Vector2D(getX0MaxCoord(), getX1MaxCoord()),
