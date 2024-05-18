@@ -77,6 +77,8 @@ public class VariablePagePopUp extends Stage {
     cancelButton.setId("small-button");
     saveButton.setId("small-button");
 
+    cancelButton.setOnAction(e -> this.close());
+
     // Create HBox for name label and textField
     HBox nameHBox = new HBox();
     nameHBox.setId("textFieldHBox");
