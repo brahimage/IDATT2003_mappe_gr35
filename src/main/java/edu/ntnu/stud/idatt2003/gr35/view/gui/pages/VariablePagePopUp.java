@@ -1,11 +1,19 @@
 package edu.ntnu.stud.idatt2003.gr35.view.gui.pages;
 
+import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameDescription;
+import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameFileHandler;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
+import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageelements.DoubleTextField;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import edu.ntnu.stud.idatt2003.gr35.view.gui.pageswitchbuttons.TransformEntryButton;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,6 +29,8 @@ import javafx.scene.layout.HBox;
  * A pop-up window that allows the user to input values for a variable page.
  */
 public class VariablePagePopUp extends Stage {
+  private ViewPage viewPage;
+
   // Textfield for the user to input the name of the new chaos game description
   private final DoubleTextField nameField;
 
@@ -51,11 +61,17 @@ public class VariablePagePopUp extends Stage {
   HBox minCoordsHBox = new HBox(10);
   HBox maxCoordsHBox = new HBox(10);
 
+  private List<Transform2D> transforms;
+
   /**
    * Constructs a new VariablePagePopUp.
    */
-  public VariablePagePopUp() {
+  public VariablePagePopUp(ViewPage viewPage) {
     super();
+
+    this.viewPage = viewPage;
+
+    transforms = new ArrayList<>();
 
     this.root = new StackPane();
 
@@ -70,7 +86,7 @@ public class VariablePagePopUp extends Stage {
     String[] items = {"Affine", "Julia"};
     transformTypeComboBox.getItems().addAll(items);
 
-    this.addTransformButton = new TransformEntryButton();
+    this.addTransformButton = new TransformEntryButton(this);
     this.cancelButton = new Button("Cancel");
     this.saveButton = new Button("Save");
 
@@ -78,6 +94,20 @@ public class VariablePagePopUp extends Stage {
     saveButton.setId("save-button");
 
     cancelButton.setOnAction(e -> this.close());
+    saveButton.setOnAction(e -> {
+      try {
+        ChaosGameDescription chaosGameDescription = new ChaosGameDescription(
+            new Vector2D(getX0MinCoord(), getX1MinCoord()),
+            new Vector2D(getX0MaxCoord(), getX1MaxCoord()),
+            transforms);
+        ChaosGameFileHandler.writeToFile(chaosGameDescription, "ChaosGames/" + getName() + ".json");
+        viewPage.updateComboBox();
+        this.close();
+      } catch (Exception exception) {
+        new Alert(Alert.AlertType.WARNING, "Exception occured: Make sure to fill out all fields correctly.").show();
+      }
+
+    });
 
     // Create HBox for name label and textField
     HBox nameHBox = new HBox();
@@ -199,5 +229,15 @@ public class VariablePagePopUp extends Stage {
     this.initModality(Modality.APPLICATION_MODAL);
     this.setScene(scene);
     this.show();
+  }
+
+  /**
+   * Adds a transform to the list of transforms.
+   *
+   * @param transform The transform to add.
+   */
+  public void addTransform(Transform2D transform) {
+    transforms.add(transform);
+    System.out.println(transforms.size());
   }
 }

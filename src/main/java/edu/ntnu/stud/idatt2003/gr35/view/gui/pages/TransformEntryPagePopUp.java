@@ -1,6 +1,8 @@
 package edu.ntnu.stud.idatt2003.gr35.view.gui.pages;
 
 import java.util.Objects;
+
+import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -12,13 +14,15 @@ import javafx.stage.Stage;
 public class TransformEntryPagePopUp extends Stage {
   // Contains a StackPane root that can be filled by classes representing different types of transform
   private final StackPane root;
+  private VariablePagePopUp pagePopUp;
 
   /**
    * Constructs a new TransformEntryPagePopUp.
    */
-  public TransformEntryPagePopUp(String transformType) {
+  public TransformEntryPagePopUp(VariablePagePopUp pagePopUp, String transformType) {
     super();
     this.root = new StackPane();
+    this.pagePopUp = pagePopUp;
     populate(transformType);
   }
 
@@ -38,6 +42,13 @@ public class TransformEntryPagePopUp extends Stage {
       default:
         throw new IllegalArgumentException("Invalid transform type: " + transformType);
     }
+  }
+
+  /**
+   * Fetches transform from the page builder and passes it to ViewPage.
+   */
+  public void passTransform(Transform2D transform) {
+    pagePopUp.addTransform(transform);
   }
 
   /**

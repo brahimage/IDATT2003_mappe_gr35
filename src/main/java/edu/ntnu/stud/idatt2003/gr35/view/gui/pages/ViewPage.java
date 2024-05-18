@@ -26,6 +26,7 @@ import javafx.scene.text.Text;
 public class ViewPage extends StackPane {
   private String selectedChaosGame;
   private int stepCount = 10000;
+  ComboBox<String> comboBox;
 
   /**
    * Constructs a new ViewPage.
@@ -92,7 +93,7 @@ public class ViewPage extends StackPane {
     BorderPane topBar = new BorderPane();
     topBar.setId("top-bar");
 
-    VariablePopUpButton variablePopUpButton = new VariablePopUpButton();
+    VariablePopUpButton variablePopUpButton = new VariablePopUpButton(this);
     DeleteButton deleteButton = new DeleteButton();
     PlayButton playButton = new PlayButton();
     SaveButton saveButton = new SaveButton();
@@ -106,20 +107,9 @@ public class ViewPage extends StackPane {
     stepFieldContainer.getChildren().addAll(stepText, stepField);
     stepFieldContainer.setId("step-field-container");
     stepFieldContainer.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-    ComboBox<String> comboBox = new ComboBox<>();
+    comboBox = new ComboBox<>();
 
-    // Get paths of all .json files in the ChaosGames directory
-    ArrayList<String> items;
-    try {
-      items = ChaosGameFileHandler.GetAllExistingPaths(Path.of("ChaosGames"));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-    // Remove the directory path and the file extension from the paths
-    items.replaceAll(s -> s.substring(11, s.length() - 5));
-
-    // Add the items to the ComboBox
-    comboBox.getItems().addAll(items);
+    updateComboBox();
     comboBox.setId("top-bar-combobox");
     comboBox.setPromptText("Select transformation");
 
@@ -152,6 +142,26 @@ public class ViewPage extends StackPane {
     topBar.setRight(quitButton);
     topBar.setMinHeight(60);
     return topBar;
+  }
+
+  /**
+   * Updates the ComboBox with the names of the chaos games in the ChaosGames directory.
+   */
+  public void updateComboBox() {
+    // Get paths of all .json files in the ChaosGames directory
+    ArrayList<String> items;
+    try {
+      items = ChaosGameFileHandler.GetAllExistingPaths(Path.of("ChaosGames"));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    // Remove the directory path and the file extension from the paths
+    items.replaceAll(s -> s.substring(11, s.length() - 5));
+
+    comboBox.getItems().clear();
+
+    // Add the items to the ComboBox
+    comboBox.getItems().addAll(items);
   }
 
   /**

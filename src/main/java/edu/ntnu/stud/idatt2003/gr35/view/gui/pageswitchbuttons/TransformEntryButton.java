@@ -12,7 +12,7 @@ public class TransformEntryButton extends Button {
   /**
    * Constructs a new TransformEntryPopUpButton.
    */
-  public TransformEntryButton() {
+  public TransformEntryButton(VariablePagePopUp pagePopUp) {
     super();
 
     this.setText("Add Transform");
@@ -24,7 +24,7 @@ public class TransformEntryButton extends Button {
 
     // Opens a new pop-up window for adding a new variable.
     this.setOnAction(e -> {
-      new TransformEntryPagePopUp(transformType).showPopUp();
+      new TransformEntryPagePopUp(pagePopUp, transformType).showPopUp();
     });
   }
 }

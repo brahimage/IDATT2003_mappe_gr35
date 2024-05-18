@@ -26,7 +26,7 @@ public abstract class TransformEntryPageBuilder {
    *
    * @return The page for adding the affine transformation.
    */
-  public static StackPane buildAffineTransformationPage(Stage stage) {
+  public static StackPane buildAffineTransformationPage(TransformEntryPagePopUp stage) {
     VBox pageElementsVBox = new VBox(10);
 
     Text header = new Text("Affine Transformation");
@@ -79,6 +79,7 @@ public abstract class TransformEntryPageBuilder {
         double b0 = Double.parseDouble(b0Field.getText());
         double b1 = Double.parseDouble(b1Field.getText());
         transform = new AffineTransform2D(new Matrix2x2(a00, a01, a10, a11), new Vector2D(b0, b1));
+        stage.passTransform(transform);
         stage.close();
       } catch (Exception exc) {
         new Alert(Alert.AlertType.WARNING, "Please enter valid numbers in all fields.").show();
@@ -106,5 +107,14 @@ public abstract class TransformEntryPageBuilder {
   public static StackPane buildJuliaTransformationPage() {
     // TODO - Implement
     return new StackPane();
+  }
+
+  /**
+   * Gets the transform that was created in the last page built by this class.
+   *
+   * @return The transform that was created in the last page built by this class.
+   */
+  public static Transform2D getTransform() {
+    return transform;
   }
 }
