@@ -30,7 +30,7 @@ public class TransformEntryPagePopUp extends Stage {
   public void populate(String transformType) {
     switch (transformType) {
       case "Affine":
-        root.getChildren().add(TransformEntryPageBuilder.buildAffineTransformationPage());
+        root.getChildren().add(TransformEntryPageBuilder.buildAffineTransformationPage(this));
         break;
       case "Julia":
         root.getChildren().add(TransformEntryPageBuilder.buildJuliaTransformationPage());
