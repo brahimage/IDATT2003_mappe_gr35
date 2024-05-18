@@ -142,19 +142,19 @@ public class VariablePagePopUp extends Stage {
     HBox x0HBox2 = new HBox();
     x0HBox2.setId("textFieldHBox");
     Label x0Label2 = new Label("x0: ");
-    x0HBox.getChildren().addAll(x0Label2, x0MaxCoordField);
-    x0HBox.setAlignment(Pos.CENTER);
+    x0HBox2.getChildren().addAll(x0Label2, x0MaxCoordField);
+    x0HBox2.setAlignment(Pos.CENTER);
 
     HBox x1HBox2 = new HBox();
     x1HBox2.setId("textFieldHBox");
     Label x1Label2 = new Label("x1: ");
-    x1HBox.getChildren().addAll(x1Label2, x1MaxCoordField);
-    x1HBox.setAlignment(Pos.CENTER);
+    x1HBox2.getChildren().addAll(x1Label2, x1MaxCoordField);
+    x1HBox2.setAlignment(Pos.CENTER);
 
     maxCoords.add(x0HBox2, 0, 0);
     maxCoords.add(x1HBox2, 0, 1);
-    maxCoords.setVgap(110);
-    maxCoordsHBox.getChildren().addAll(maxCoords);
+    maxCoords.setVgap(10);
+    maxCoordsHBox.getChildren().addAll(new Text("Max Cords: "), maxCoords);
 
     HBox transformTypeHBox = new HBox();
     transformTypeHBox.setId("textFieldHBox");
