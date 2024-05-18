@@ -87,3 +87,13 @@
     -fx-fill: -fx-text-color;
     -fx-font-size: 15px;
 }
+
+#header {
+    -fx-font-size: 30px;
+    -fx-text-fill: -fx-text-color;
+}
+
+#sub-header {
+    -fx-font-size: 20px;
+    -fx-text-fill: -fx-text-color;
+}
