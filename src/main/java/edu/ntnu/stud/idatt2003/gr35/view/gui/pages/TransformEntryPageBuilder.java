@@ -1,5 +1,10 @@
 package edu.ntnu.stud.idatt2003.gr35.view.gui.pages;
 
+import edu.ntnu.stud.idatt2003.gr35.model.math.Matrix2x2;
+import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
+import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
+import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -13,6 +18,8 @@ import javafx.stage.Stage;
  * A builder class for building pages for adding transformations to a chaos game description.
  */
 public abstract class TransformEntryPageBuilder {
+  static Transform2D transform;
+
   /**
    * Builds a page for adding an affine transformation.
    * Consists of fields for each element in a 2*2 matrix and a translation vector.
@@ -63,6 +70,21 @@ public abstract class TransformEntryPageBuilder {
     cancelButton.setId("small-button");
 
     cancelButton.setOnAction(e -> stage.close());
+    saveButton.setOnAction(e -> {
+      try {
+        double a00 = Double.parseDouble(a00Field.getText());
+        double a01 = Double.parseDouble(a01Field.getText());
+        double a10 = Double.parseDouble(a10Field.getText());
+        double a11 = Double.parseDouble(a11Field.getText());
+        double b0 = Double.parseDouble(b0Field.getText());
+        double b1 = Double.parseDouble(b1Field.getText());
+        transform = new AffineTransform2D(new Matrix2x2(a00, a01, a10, a11), new Vector2D(b0, b1));
+        stage.close();
+      } catch (Exception exc) {
+        new Alert(Alert.AlertType.WARNING, "Please enter valid numbers in all fields.").show();
+      }
+
+    });
 
     HBox buttonBox = new HBox(10);
     buttonBox.getChildren().addAll(saveButton, cancelButton);
