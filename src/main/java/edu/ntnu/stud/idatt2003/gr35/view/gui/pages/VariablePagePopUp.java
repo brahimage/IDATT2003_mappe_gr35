@@ -28,7 +28,6 @@ import javafx.scene.layout.HBox;
  * A pop-up window that allows the user to input values for a variable page.
  */
 public class VariablePagePopUp extends Stage {
-  private ViewPage viewPage;
 
   // Textfield for the user to input the name of the new chaos game description
   private final TextField nameField;
@@ -68,8 +67,6 @@ public class VariablePagePopUp extends Stage {
    */
   public VariablePagePopUp(ViewPage viewPage) {
     super();
-
-    this.viewPage = viewPage;
 
     transforms = new ArrayList<>();
 
