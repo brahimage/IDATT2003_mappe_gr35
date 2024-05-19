@@ -50,7 +50,7 @@ public class SceneController extends Observable implements Observer {
    * Constructor for the SceneController.
    *
    * @param primaryStage The primary stage.
-   * @throws FileNotFoundException If the file is not found.
+   * @throws FileNotFoundException If the stylesheets file is not found.
    */
   public SceneController(Stage primaryStage) throws FileNotFoundException {
     this.scene = new Scene(new StackPane(), 1280, 720);
