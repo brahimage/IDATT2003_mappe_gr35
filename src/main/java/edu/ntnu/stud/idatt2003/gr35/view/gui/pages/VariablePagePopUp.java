@@ -60,6 +60,8 @@ public class VariablePagePopUp extends Stage {
   HBox minCoordsHBox = new HBox(10);
   HBox maxCoordsHBox = new HBox(10);
 
+  GridPane layoutGrid = new GridPane();
+
   private List<Transform2D> transforms;
 
   /**
@@ -73,14 +75,20 @@ public class VariablePagePopUp extends Stage {
     this.root = new StackPane();
 
     this.nameField = new TextField();
+    nameField.setId("coord-input-field");
 
     this.x0MinCoordField = new DoubleTextField();
     this.x1MinCoordField = new DoubleTextField();
     this.x0MaxCoordField = new DoubleTextField();
     this.x1MaxCoordField = new DoubleTextField();
+    x0MinCoordField.setId("coord-input-field");
+    x1MinCoordField.setId("coord-input-field");
+    x0MaxCoordField.setId("coord-input-field");
+    x1MaxCoordField.setId("coord-input-field");
 
     this.transformTypeComboBox = new ComboBox<>();
     choice = "";
+    transformTypeComboBox.setId("type-combobox");
 
     transformTypeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> choice = newValue);
 
@@ -93,6 +101,8 @@ public class VariablePagePopUp extends Stage {
 
     cancelButton.setId("small-button");
     saveButton.setId("save-button");
+    saveButton.setPrefWidth(120);
+    cancelButton.setPrefWidth(120);
 
     cancelButton.setOnAction(e -> this.close());
     saveButton.setOnAction(e -> {
@@ -120,50 +130,64 @@ public class VariablePagePopUp extends Stage {
     // Create HBox for name label and textField
     HBox nameHBox = new HBox();
     nameHBox.setId("textFieldHBox");
-    Label nameLabel = new Label("Name: ");
-    nameHBox.getChildren().addAll(nameLabel, nameField);
+    Text nameLabel = new Text("Name: ");
+    layoutGrid.add(nameLabel, 0, 0);
+    layoutGrid.add(nameField, 2, 0);
+//    nameHBox.getChildren().addAll(nameLabel, nameField);
 
-    GridPane minCoords = new GridPane();
-    HBox x0HBox = new HBox();
-    x0HBox.setId("textFieldHBox");
+//    GridPane minCoords = new GridPane();
+//    HBox x0HBox = new HBox();
+//    x0HBox.setId("textFieldHBox");
     Label x0Label = new Label("x0: ");
-    x0HBox.getChildren().addAll(x0Label, x0MinCoordField);
-    x0HBox.setAlignment(Pos.CENTER);
+//    x0HBox.getChildren().addAll(x0Label, x0MinCoordField);
+    layoutGrid.add(new Text("Min Coords: \t"), 0, 1);
+    layoutGrid.add(x0Label, 1, 1);
+    layoutGrid.add(x0MinCoordField, 2, 1);
+//    x0HBox.setAlignment(Pos.CENTER);
 
-    HBox x1HBox = new HBox();
-    x1HBox.setId("textFieldHBox");
+//    HBox x1HBox = new HBox();
+//    x1HBox.setId("textFieldHBox");
     Label x1Label = new Label("x1: ");
-    x1HBox.getChildren().addAll(x1Label, x1MinCoordField);
-    x1HBox.setAlignment(Pos.CENTER);
+//    x1HBox.getChildren().addAll(x1Label, x1MinCoordField);
+    layoutGrid.add(x1Label, 1, 2);
+    layoutGrid.add(x1MinCoordField, 2, 2);
+//    x1HBox.setAlignment(Pos.CENTER);
 
-    minCoords.add(x0HBox, 0, 0);
-    minCoords.add(x1HBox, 0, 1);
-    minCoords.setVgap(10);
-    minCoordsHBox.getChildren().addAll(new Text("Min Coords: "), minCoords);
+//    minCoords.add(x0HBox, 0, 0);
+//    minCoords.add(x1HBox, 0, 1);
+//    minCoords.setVgap(10);
+//    minCoordsHBox.getChildren().addAll(new Text("Min Coords: "), minCoords);
 
 
-    GridPane maxCoords = new GridPane();
-    HBox x0HBox2 = new HBox();
-    x0HBox2.setId("textFieldHBox");
+//    GridPane maxCoords = new GridPane();
+//    HBox x0HBox2 = new HBox();
+//    x0HBox2.setId("textFieldHBox");
     Label x0Label2 = new Label("x0: ");
-    x0HBox2.getChildren().addAll(x0Label2, x0MaxCoordField);
-    x0HBox2.setAlignment(Pos.CENTER);
+//    x0HBox2.getChildren().addAll(x0Label2, x0MaxCoordField);
+    layoutGrid.add(new Text("Max Coords: "), 0, 3);
+    layoutGrid.add(x0Label2, 1, 3);
+    layoutGrid.add(x0MaxCoordField, 2, 3);
+//    x0HBox2.setAlignment(Pos.CENTER);
 
-    HBox x1HBox2 = new HBox();
-    x1HBox2.setId("textFieldHBox");
+//    HBox x1HBox2 = new HBox();
+//    x1HBox2.setId("textFieldHBox");
     Label x1Label2 = new Label("x1: ");
-    x1HBox2.getChildren().addAll(x1Label2, x1MaxCoordField);
-    x1HBox2.setAlignment(Pos.CENTER);
+//    x1HBox2.getChildren().addAll(x1Label2, x1MaxCoordField);
+    layoutGrid.add(x1Label2, 1, 4);
+    layoutGrid.add(x1MaxCoordField, 2, 4);
+//    x1HBox2.setAlignment(Pos.CENTER);
 
-    maxCoords.add(x0HBox2, 0, 0);
-    maxCoords.add(x1HBox2, 0, 1);
-    maxCoords.setVgap(10);
-    maxCoordsHBox.getChildren().addAll(new Text("Max Cords: "), maxCoords);
+//    maxCoords.add(x0HBox2, 0, 0);
+//    maxCoords.add(x1HBox2, 0, 1);
+//    maxCoords.setVgap(10);
+//    maxCoordsHBox.getChildren().addAll(new Text("Max Cords: "), maxCoords);
 
-    HBox transformTypeHBox = new HBox();
-    transformTypeHBox.setId("textFieldHBox");
-    Label transformTypeLabel = new Label("Transform Type: ");
-    transformTypeHBox.getChildren().addAll(transformTypeLabel, transformTypeComboBox);
+//    HBox transformTypeHBox = new HBox();
+//    transformTypeHBox.setId("textFieldHBox");
+    Text transformTypeLabel = new Text("Transform Type: ");
+//    transformTypeHBox.getChildren().addAll(transformTypeLabel, transformTypeComboBox);
+    layoutGrid.add(transformTypeLabel, 0, 5);
+    layoutGrid.add(transformTypeComboBox, 2, 5);
 
     // Create HBox for add transform button
     HBox addTransformButtonHBox = new HBox();
@@ -171,9 +195,12 @@ public class VariablePagePopUp extends Stage {
 
     // Create HBox for cancel and save buttons
     HBox cancelSaveButtonHBox = new HBox();
+    cancelSaveButtonHBox.setPrefWidth(300);
+    cancelSaveButtonHBox.setSpacing(10);
     cancelSaveButtonHBox.getChildren().addAll(cancelButton, saveButton);
 
-    pageElementsVBox.getChildren().addAll(nameHBox, minCoordsHBox, maxCoordsHBox, transformTypeHBox, addTransformButtonHBox, cancelSaveButtonHBox);
+    layoutGrid.setVgap(10);
+    pageElementsVBox.getChildren().addAll(nameHBox, layoutGrid, addTransformButtonHBox, cancelSaveButtonHBox);
 
     root.getChildren().addAll(pageElementsVBox);
   }
