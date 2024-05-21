@@ -21,7 +21,7 @@ Text {
     -fx-background-radius: 10;
     -fx-text-fill: -fx-text-color;
     -fx-font-size: 15px;
-    -fx-pref-height: 60;
+    -fx-pref-height: 60px;
     -fx-effect: dropshadow(three-pass-box, -fx-primary, 10, 0, 0, 3);
 }
 
@@ -102,4 +102,44 @@ Text {
 #sub-header {
     -fx-font-size: 20px;
     -fx-text-fill: -fx-text-color;
+}
+
+#type-combobox {
+    -fx-background-color: -fx-primary;
+    -fx-background-radius: 10px;
+    -fx-font-size: 15px;
+    -fx-padding: 5px;
+    -fx-text-fill: -fx-text-color;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 200px;
+    -fx-effect: dropshadow(three-pass-box, -fx-primary, 10, 0, 0, 0);
+}
+
+#type-combobox .list-view {
+    -fx-background-color: -fx-primary;
+    -fx-background-radius: 10 10 10 10;
+    -fx-padding: 5 0 0 0;
+}
+
+#type-combobox .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-color;
+    -fx-font-size: 15;
+    -fx-pref-height: 40;
+}
+
+#type-combobox .list-cell:hover {
+    -fx-background-color: -fx-secondary;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+#type-combobox:hover {
+    -fx-background-color: -fx-secondary;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+#coord-input-field {
+
 }
