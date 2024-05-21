@@ -133,59 +133,28 @@ public class VariablePagePopUp extends Stage {
     Text nameLabel = new Text("Name: ");
     layoutGrid.add(nameLabel, 0, 0);
     layoutGrid.add(nameField, 2, 0);
-//    nameHBox.getChildren().addAll(nameLabel, nameField);
 
-//    GridPane minCoords = new GridPane();
-//    HBox x0HBox = new HBox();
-//    x0HBox.setId("textFieldHBox");
     Label x0Label = new Label("x0: ");
-//    x0HBox.getChildren().addAll(x0Label, x0MinCoordField);
+
     layoutGrid.add(new Text("Min Coords: \t"), 0, 1);
     layoutGrid.add(x0Label, 1, 1);
     layoutGrid.add(x0MinCoordField, 2, 1);
-//    x0HBox.setAlignment(Pos.CENTER);
 
-//    HBox x1HBox = new HBox();
-//    x1HBox.setId("textFieldHBox");
     Label x1Label = new Label("x1: ");
-//    x1HBox.getChildren().addAll(x1Label, x1MinCoordField);
     layoutGrid.add(x1Label, 1, 2);
     layoutGrid.add(x1MinCoordField, 2, 2);
-//    x1HBox.setAlignment(Pos.CENTER);
 
-//    minCoords.add(x0HBox, 0, 0);
-//    minCoords.add(x1HBox, 0, 1);
-//    minCoords.setVgap(10);
-//    minCoordsHBox.getChildren().addAll(new Text("Min Coords: "), minCoords);
-
-
-//    GridPane maxCoords = new GridPane();
-//    HBox x0HBox2 = new HBox();
-//    x0HBox2.setId("textFieldHBox");
     Label x0Label2 = new Label("x0: ");
-//    x0HBox2.getChildren().addAll(x0Label2, x0MaxCoordField);
+
     layoutGrid.add(new Text("Max Coords: "), 0, 3);
     layoutGrid.add(x0Label2, 1, 3);
     layoutGrid.add(x0MaxCoordField, 2, 3);
-//    x0HBox2.setAlignment(Pos.CENTER);
 
-//    HBox x1HBox2 = new HBox();
-//    x1HBox2.setId("textFieldHBox");
     Label x1Label2 = new Label("x1: ");
-//    x1HBox2.getChildren().addAll(x1Label2, x1MaxCoordField);
     layoutGrid.add(x1Label2, 1, 4);
     layoutGrid.add(x1MaxCoordField, 2, 4);
-//    x1HBox2.setAlignment(Pos.CENTER);
 
-//    maxCoords.add(x0HBox2, 0, 0);
-//    maxCoords.add(x1HBox2, 0, 1);
-//    maxCoords.setVgap(10);
-//    maxCoordsHBox.getChildren().addAll(new Text("Max Cords: "), maxCoords);
-
-//    HBox transformTypeHBox = new HBox();
-//    transformTypeHBox.setId("textFieldHBox");
     Text transformTypeLabel = new Text("Transform Type: ");
-//    transformTypeHBox.getChildren().addAll(transformTypeLabel, transformTypeComboBox);
     layoutGrid.add(transformTypeLabel, 0, 5);
     layoutGrid.add(transformTypeComboBox, 2, 5);
 
