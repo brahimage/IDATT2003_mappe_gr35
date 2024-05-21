@@ -33,6 +33,14 @@ public class MainUI extends Application implements Observer {
         // Loading the canvas calculates the size of certain elements dynamically.
         // Because of this, it must be done AFTER the stage is shown.
         sceneController.loadCanvas();
+        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            sceneController.loadCanvas();
+        });
+
+        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            sceneController.loadCanvas();
+        });
+
     }
 
     /**
@@ -47,9 +55,9 @@ public class MainUI extends Application implements Observer {
         // Get the selected chaos game from drop down menu loaded by scene controller.
         String selectedChaosGame = sceneController.getChosenGame();
         if (selectedChaosGame.isEmpty()) {
-            return;
+            return; // No chaos game selected yet.
         }
-        String path = "ChaosGames\\" + selectedChaosGame + ".json";
+        String path = "ChaosGames/" + selectedChaosGame + ".json";
         ChaosGameDescription gameDescription;
         try {
             gameDescription = ChaosGameFileHandler.readFromFile(path);
@@ -63,6 +71,6 @@ public class MainUI extends Application implements Observer {
         // The sceneController will draw as the pixels are modified.
         chaosGame.addObserver(sceneController);
         chaosGame.init();
-        chaosGame.runSteps(10000);
+        chaosGame.runSteps(sceneController.getStepCount());
     }
 }

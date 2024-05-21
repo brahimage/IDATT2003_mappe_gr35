@@ -7,19 +7,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * A button that deletes an item.
+ * A button that the current fractal as a png file.
  */
-public class DeleteButton extends Button {
+public class SaveButton extends Button {
   /**
-   * Constructs a new DeleteButton.
+   * Constructs a new SaveButton.
    *
    * @throws FileNotFoundException If the icon file is not found.
    */
-  public DeleteButton() throws FileNotFoundException {
+
+  public SaveButton() throws FileNotFoundException {
     super();
+    this.setText("Save as image");
 
     try {
-      Image icon = new Image(new FileInputStream("src/main/resources/icons/delete-icon.png"));
+      Image icon = new Image(new FileInputStream("src/main/resources/icons/save-icon.png"));
       ImageView iconView = new ImageView(icon);
 
       this.setMinSize(60, 60);

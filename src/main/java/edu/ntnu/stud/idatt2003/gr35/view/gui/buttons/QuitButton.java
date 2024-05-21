@@ -7,20 +7,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * A button that deletes an item.
+ * A button that quits the application.
  */
-public class DeleteButton extends Button {
+public class QuitButton extends Button {
+
   /**
-   * Constructs a new DeleteButton.
+   * Constructs a new QuitButton.
    *
    * @throws FileNotFoundException If the icon file is not found.
    */
-  public DeleteButton() throws FileNotFoundException {
+  public QuitButton() throws FileNotFoundException {
     super();
 
     try {
-      Image icon = new Image(new FileInputStream("src/main/resources/icons/delete-icon.png"));
+      Image icon = new Image(new FileInputStream("src/main/resources/icons/quit-icon.png"));
       ImageView iconView = new ImageView(icon);
+      this.setText("Quit App");
 
       this.setMinSize(60, 60);
 
@@ -29,6 +31,8 @@ public class DeleteButton extends Button {
 
       this.setGraphic(iconView);
       this.setId("small-button");
+
+      this.setOnAction(e -> System.exit(0));
 
     } catch (FileNotFoundException e) {
       System.out.println("File not found");
