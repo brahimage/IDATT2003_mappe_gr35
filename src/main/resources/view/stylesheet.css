@@ -5,6 +5,12 @@
     -fx-text-color: #d7d7d7;
 }
 
+Text {
+    -fx-font-size: 15px;
+    -fx-fill: -fx-text-color;
+
+}
+
 #view-page {
     -fx-background-color: -fx-background;
     -fx-padding: 20px;
