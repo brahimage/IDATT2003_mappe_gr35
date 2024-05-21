@@ -5,6 +5,7 @@ import edu.ntnu.stud.idatt2003.gr35.model.math.Vector2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.AffineTransform2D;
 import edu.ntnu.stud.idatt2003.gr35.model.transformations.Transform2D;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,8 +25,8 @@ public class ChaosGameFileHandlerTest {
     transforms.add(new AffineTransform2D(sierpinskiMatrix, new Vector2D(.25, .5)));
 
     ChaosGameDescription description = new ChaosGameDescription(min, max, transforms);
-    ChaosGameFileHandler.writeToFile(description, "ChaosGames/test.json");
-    ChaosGameDescription description2 = ChaosGameFileHandler.readFromFile("ChaosGames/test.json");
+    ChaosGameFileHandler.writeToFile(description, "ChaosGamesTest/test.json");
+    ChaosGameDescription description2 = ChaosGameFileHandler.readFromFile("ChaosGamesTest/test.json");
 
     // Assert that the data stored within the ChaosGameDescription object is the same after saving and loading
     assertEquals(description.getMincoords().getx0(), description2.getMincoords().getx0());
@@ -39,5 +40,14 @@ public class ChaosGameFileHandlerTest {
       assertEquals(vec0.getx0(), vec1.getx0());
       assertEquals(vec0.getx1(), vec1.getx1());
     }
+  }
+
+  @Test
+  void testGetAllExistingPaths() throws IOException {
+    ArrayList<String> paths = ChaosGameFileHandler.GetAllExistingPaths(Path.of("ChaosGamesTest"));
+    assertEquals(3, paths.size());
+    assertEquals("ChaosGamesTest\\julia.json", paths.get(0));
+    assertEquals("ChaosGamesTest\\sierpinski.json", paths.get(1));
+    assertEquals("ChaosGamesTest\\test.json", paths.get(2));
   }
 }

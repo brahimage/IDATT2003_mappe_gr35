@@ -3,6 +3,9 @@ package edu.ntnu.stud.idatt2003.gr35.model.math;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class representing a 2x2 matrix.
+ */
 public class Matrix2x2 implements Serializable {
     // The serial version UID.
     @Serial
@@ -39,5 +42,33 @@ public class Matrix2x2 implements Serializable {
         double x0 = a00 * vector2d.getx0() + a01 * vector2d.getx1();
         double x1 = a10 * vector2d.getx0() + a11 * vector2d.getx1();
         return new Vector2D(x0, x1);
+    }
+
+    /**
+     * Getter for the element in the first row and first column.
+     */
+    public double getA00() {
+        return a00;
+    }
+
+    /**
+     * Getter for the element in the first row and second column.
+     */
+    public double getA01() {
+        return a01;
+    }
+
+    /**
+     * Getter for the element in the second row and first column.
+     */
+    public double getA10() {
+        return a10;
+    }
+
+    /**
+     * Getter for the element in the second row and second column.
+     */
+    public double getA11() {
+        return a11;
     }
 }

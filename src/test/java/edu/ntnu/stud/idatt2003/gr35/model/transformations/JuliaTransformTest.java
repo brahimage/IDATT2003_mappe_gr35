@@ -15,4 +15,17 @@ public class JuliaTransformTest {
     Vector2D vector2 = transform.transform(vector);
     assertEquals(0.7071067811865476, vector2.getx0());
   }
+
+  @Test
+  void testGetPoint() {
+    JuliaTransform transform = new JuliaTransform(new Complex(1, 2), Sign.POSITIVE);
+    assertEquals(transform.getPoint().getx0(), 1);
+    assertEquals(transform.getPoint().getx1(), 2);
+  }
+
+  @Test
+  void testGetPointAsString() {
+    JuliaTransform transform = new JuliaTransform(new Complex(1, 2), Sign.POSITIVE);
+    assertEquals("1.0, 2.0", transform.getPointAsString());
+  }
 }

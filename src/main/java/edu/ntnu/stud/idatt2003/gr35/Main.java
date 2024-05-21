@@ -2,9 +2,13 @@ package edu.ntnu.stud.idatt2003.gr35;
 
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameDescription;
 import edu.ntnu.stud.idatt2003.gr35.model.gameLogic.ChaosGameFileHandler;
-import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * DEPRECATED! This class is no longer used in the application.
+ * It was used for the console-based version of the Chaos Game application.
+ * Main class for the Chaos Game application.
+ */
 public class Main {
     static ChaosGameDescription chaosGameDescription;
     static ChaosGame chaosGame;
@@ -41,7 +45,7 @@ public class Main {
         String filePath = scanner.nextLine();
         try {
             chaosGameDescription = ChaosGameFileHandler.readFromFile(filePath);
-            chaosGame = new ChaosGame(chaosGameDescription, 100, 20);
+            chaosGame = new ChaosGame(chaosGameDescription, 120, 50);
         } catch (Exception e) {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
         }

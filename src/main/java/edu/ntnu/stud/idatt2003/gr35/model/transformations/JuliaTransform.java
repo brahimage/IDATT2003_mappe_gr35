@@ -43,4 +43,20 @@ public class JuliaTransform implements Transform2D, Serializable {
     //Return result as Vector2D.
     return new Vector2D(result.getx0(), result.getx1());
   }
+
+  /**
+   * Returns the complex number used in the transformation.
+   *
+   * @return the complex number.
+   */
+  public Complex getPoint() {
+    return point;
+  }
+
+  /**
+   * Returns the point of the transform as a string
+   */
+  public String getPointAsString() {
+    return point.getx0() + ", " + point.getx1();
+  }
 }
